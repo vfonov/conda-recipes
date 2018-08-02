@@ -1,0 +1,23 @@
+package:
+  name: minc-toolkit-v2
+  version: "1.9.17"
+
+source:
+  fn: minc-toolkit-v2-d71e582b805bcc32322560a046ce8df44bed0b62.tar.gz
+  url: https://github.com/BIC-MNI/minc-toolkit-v2/releases/download/release-1.9.17-test/minc-toolkit-v2-d71e582b805bcc32322560a046ce8df44bed0b62.tar.gz
+  sha1: ef5e18320e1d3cb0f8e474d2bea016a20ab5dd35
+
+requirements:
+  build:
+    - cmake
+    - flex
+    - bison
+    - gcc_linux-64
+    - gxx_linux-64
+    - gfortran_linux-64
+    - binutils_linux-64
+
+about:
+  home: http://bic-mni.github.io/
+  license: GPL3
+  summary: 'Toolkit for processing MRI scans'
