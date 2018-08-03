@@ -28,7 +28,7 @@ RUN \
 RUN \
     . /etc/profile.d/conda.sh \
     conda activate \
-    conda install -y build
+    conda install -y conda-build
 
 ENTRYPOINT [ "/usr/bin/tini", "--" ]
 CMD [ "/bin/bash" ]
