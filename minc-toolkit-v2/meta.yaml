@@ -12,12 +12,20 @@ requirements:
     - cmake
     - flex
     - bison
-    - gcc_linux-64
-    - gxx_linux-64
-    - gfortran_linux-64
-    - binutils_linux-64
+    - {{ compiler('c') }}        [linux]
+    - {{ compiler('cxx') }}      [linux]
+    - {{ compiler('fortran') }}  [linux]
+    - binutils_linux-64 [linux]
+    - perl
+    - system            [linux]
+  run:
+    - perl
 
 about:
   home: http://bic-mni.github.io/
   license: GPL3
   summary: 'Toolkit for processing MRI scans'
+  description: |
+    This metaproject bundles multiple MINC-based packages that historically have been developed somewhat independently.
+  doc_url: http://bic-mni.github.io/man-pages
+  dev_url: https://github.com/BIC-MNI/minc-toolkit-v2
