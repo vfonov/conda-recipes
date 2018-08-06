@@ -1,6 +1,9 @@
+{% set name = "pyezminc" %}
+{% set version = "1.2.01" %}
+
 package:
-  name: pyezminc
-  version: "1.2.01"
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
 
 source:
   fn: pyezminc-1.2.01.tar.gz
@@ -9,15 +12,20 @@ source:
 
 build:
   number: 0
+  script: "{{ PYTHON }} setup.py install "
 
 requirements:
+  host:
+    - numpy
+    - pip
+    - python
+    - cython
   build:
+    - numpy
     - cython
     - {{ compiler('c') }}        [linux]
     - {{ compiler('cxx') }}      [linux]
-    - numpy
     - setuptools
-    - python
     - minc-toolkit-v2
   run:
     - minc-toolkit-v2
@@ -31,3 +39,7 @@ about:
   description: |
     Python library for MINC IO, using cython and minc1 API
   dev_url: https://github.com/BIC-MNI/pyezminc
+
+extra:
+  recipe-maintainers:
+    - vfonov

@@ -35,6 +35,7 @@ cmake .. \
       -DCMAKE_CXX_FLAGS:STRING="" \
       -DCMAKE_C_FLAGS:STRING="" \
       -DMT_USE_OPENMP:BOOL=ON \
+      -DOpenBLAS_DIR:PATH=${CONDA_PREFIX}/lib/cmake/openblas \
       -DMT_PACKAGES_PATH:PATH=${RECIPE_DIR}/cache
 
 make -j${CPU_COUNT} && make install
