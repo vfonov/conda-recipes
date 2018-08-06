@@ -1,6 +1,6 @@
 #! /bin/sh
 
-export MINC_TOOLKIT=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+export MINC_TOOLKIT=${CONDA_PREFIX}
 export MINC_TOOLKIT_VERSION="1.9.17-20180803"
 
 export PATH_MINC_TOOLKIT_SAVE=${PATH}

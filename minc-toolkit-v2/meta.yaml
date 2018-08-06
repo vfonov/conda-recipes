@@ -3,9 +3,9 @@ package:
   version: "1.9.17"
 
 source:
-  fn: minc-toolkit-v2-d71e582b805bcc32322560a046ce8df44bed0b62.tar.gz
-  url: https://github.com/BIC-MNI/minc-toolkit-v2/releases/download/release-1.9.17-test/minc-toolkit-v2-d71e582b805bcc32322560a046ce8df44bed0b62.tar.gz
-  sha1: ef5e18320e1d3cb0f8e474d2bea016a20ab5dd35
+  fn: minc-toolkit-v2-95a07aa0de04e18758473da09c67b8caa45993ee.tar.gz
+  url: https://github.com/BIC-MNI/minc-toolkit-v2/releases/download/release-1.9.17-test/minc-toolkit-v2-95a07aa0de04e18758473da09c67b8caa45993ee.tar.gz
+  sha1: 4719a35cff127eeb305335479089847923b4ea19
 
 requirements:
   build:
@@ -15,9 +15,9 @@ requirements:
     - {{ compiler('c') }}        [linux]
     - {{ compiler('cxx') }}      [linux]
     - {{ compiler('fortran') }}  [linux]
-    - binutils_linux-64 [linux]
     - perl
-    - system            [linux]
+    - system                     [linux]
+    - openblas=0.2.20
   run:
     - perl
 

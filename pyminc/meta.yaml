@@ -1,0 +1,44 @@
+{% set name = "pyminc" %}
+{% set version = "0.51" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: c575542212f75e0cf294ff0ab17b9d05d9b014439719796b8b3bc92c994922de
+
+build:
+  number: 0
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv "
+
+requirements:
+  host:
+    - numpy
+    - pip
+    - python
+    - minc-toolkit-v2
+  run:
+    - numpy
+    - python
+    - minc-toolkit-v2
+
+test:
+  imports:
+    - pyminc
+    - pyminc.volumes
+    - test
+
+about:
+  home: https://github.com/Mouse-Imaging-Centre/pyminc
+  license: BSD
+  license_family: BSD
+  license_file: 
+  summary: Python interface to libminc
+  doc_url: https://github.com/Mouse-Imaging-Centre/pyminc/wiki
+  dev_url: https://github.com/Mouse-Imaging-Centre/pyminc
+
+extra:
+  recipe-maintainers:
+    - bcdarwin

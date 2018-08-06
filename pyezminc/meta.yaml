@@ -1,0 +1,33 @@
+package:
+  name: pyezminc
+  version: "1.2.01"
+
+source:
+  fn: pyezminc-1.2.01.tar.gz
+  url: https://github.com/BIC-MNI/pyezminc/archive/release-1.2.01.tar.gz
+  sha1: d20047a07f59aa939633fd36dda5b7cd7979dfb2
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - cython
+    - {{ compiler('c') }}        [linux]
+    - {{ compiler('cxx') }}      [linux]
+    - numpy
+    - setuptools
+    - python
+    - minc-toolkit-v2
+  run:
+    - minc-toolkit-v2
+    - python
+    - numpy
+
+about:
+  home: https://github.com/BIC-MNI/pyezminc
+  license: GPL2
+  summary: 'Toolkit for processing MRI scans'
+  description: |
+    Python library for MINC IO, using cython and minc1 API
+  dev_url: https://github.com/BIC-MNI/pyezminc
