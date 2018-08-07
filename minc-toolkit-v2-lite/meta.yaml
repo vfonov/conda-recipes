@@ -1,0 +1,38 @@
+package:
+  name: minc-toolkit-v2
+  version: "1.9.17lite"
+
+source:
+  path: /data/vfonov/src/minc-toolkit-v2
+
+requirements:
+  build:
+    - cmake
+    - flex
+    - bison
+    - {{ compiler('c') }}        [linux]
+    - {{ compiler('cxx') }}      [linux]
+    - {{ compiler('fortran') }}  [linux]
+    - system                     [linux]
+    - openblas =0.2.20
+    - hdf5 <=1.8.18
+    - pcre
+    - libnetcdf <=4.5.0
+    - zlib
+    - gsl
+    - fftw
+    - jpeg=9b
+    - openjpeg
+  run:
+    - perl
+    - openblas
+
+about:
+  home: http://bic-mni.github.io/
+  license: GPL3
+  summary: 'Toolkit for processing MRI scans'
+  description: |
+    This metaproject bundles multiple MINC-based packages that historically have been developed somewhat independently.
+  doc_url: http://bic-mni.github.io/man-pages
+  dev_url: https://github.com/BIC-MNI/minc-toolkit-v2
+  
