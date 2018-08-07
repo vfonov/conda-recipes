@@ -23,6 +23,7 @@ requirements:
     - fftw
     - jpeg=9b
     - openjpeg
+    - perl
   run:
     - perl
     - openblas

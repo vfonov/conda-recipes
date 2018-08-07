@@ -16,6 +16,7 @@ requirements:
     - {{ compiler('fortran') }}  [linux]
     - system                     [linux]
     - openblas=0.2.20
+    - perl
   run:
     - perl
     - openblas

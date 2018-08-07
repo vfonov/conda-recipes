@@ -21,7 +21,7 @@ export CMAKE_LIBRARY_PATH=${CONDA_PREFIX}/lib:${CONDA_PREFIX}/lib64:${CONDA_PREF
 cmake .. \
       -DCMAKE_INSTALL_PREFIX=${PREFIX} \
       -DCMAKE_BUILD_TYPE=Release \
-      -DMT_BUILD_ITK_TOOLS:BOOL=OFF \
+      -DMT_BUILD_ITK_TOOLS:BOOL=ON \
       -DMT_BUILD_SHARED_LIBS:BOOL=ON \
       -DMT_BUILD_VISUAL_TOOLS:BOOL=OFF \
       -DUSE_SYSTEM_OPENJPEG:BOOL=ON \
@@ -107,6 +107,9 @@ else # building on MacOSX
         -DOpenBLAS_DIR:PATH=${CONDA_PREFIX}/lib/cmake/openblas 
 fi
 
+# fix a missing directory bug (?)
+mkdir -p ${PREFIX}/share
+# build and install
 make -j${CPU_COUNT} && make install
 
 #create environment activation & deactivation
