@@ -61,7 +61,7 @@ else # building on MacOSX
         -DOpenBLAS_DIR:PATH=${CONDA_PREFIX}/lib/cmake/openblas 
 fi
 
-make -j${CPU_COUNT} BEAST
+make -j${CPU_COUNT} install
 
 #create environment activation & deactivation
 ACTIVATE_DIR=$PREFIX/etc/conda/activate.d
