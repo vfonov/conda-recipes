@@ -7,13 +7,12 @@ mkdir -p build && cd build
 # don't build visual tools though
 
 # use external cache directory (?)
-if [ ! -e $RECIPE_DIR/cache ];then
+if [[ ! -e $RECIPE_DIR/cache ]];then
 mkdir -p $RECIPE_DIR/cache
 fi
 
-# FIX for NETCDF cmake builder unable to locate libm
-env
-#exit 1
+
+if [ -z ${MACOSX_DEPLOYMENT_TARGET} ];then # building on linux
 ln -sf ${CONDA_PREFIX}/x86_64-conda_cos6-linux-gnu/sysroot/lib/libm.so.6 ${CONDA_PREFIX}/lib/libm.so
 
 export CMAKE_PREFIX_PATH=${CONDA_PREFIX}
@@ -38,7 +37,31 @@ cmake .. \
       -DOpenBLAS_DIR:PATH=${CONDA_PREFIX}/lib/cmake/openblas \
       -DMT_PACKAGES_PATH:PATH=${RECIPE_DIR}/cache
 
-make -j${CPU_COUNT} && make install
+else # building on MacOSX
+  export CMAKE_PREFIX_PATH=${CONDA_PREFIX}
+  export CMAKE_LIBRARY_PATH=${CONDA_PREFIX}/lib:${CONDA_PREFIX}/lib64:${CONDA_PREFIX}/x86_64-conda_cos6-linux-gnu/sysroot/lib
+
+  cmake .. \
+        -DCMAKE_INSTALL_PREFIX=${PREFIX} \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DMT_BUILD_ITK_TOOLS:BOOL=ON \
+        -DMT_BUILD_SHARED_LIBS:BOOL=ON \
+        -DMT_BUILD_VISUAL_TOOLS:BOOL=OFF \
+        -DUSE_SYSTEM_OPENJPEG:BOOL=OFF \
+        -DMT_BUILD_ANTS:BOOL=ON \
+        -DMT_BUILD_C3D:BOOL=ON \
+        -DMT_BUILD_ELASTIX:BOOL=ON \
+        -DMT_BUILD_OPENBLAS:BOOL=OFF \
+        -DMT_BUILD_SHARED_LIBS:BOOL=ON \
+        -DCMAKE_Fortran_FLAGS:STRING="" \
+        -DCMAKE_CXX_FLAGS:STRING="" \
+        -DCMAKE_C_FLAGS:STRING="" \
+        -DMT_USE_OPENMP:BOOL=OFF \
+        -DMT_PACKAGES_PATH:PATH=${RECIPE_DIR}/cache \
+        -DOpenBLAS_DIR:PATH=${CONDA_PREFIX}/lib/cmake/openblas 
+fi
+
+make -j${CPU_COUNT} BEAST
 
 #create environment activation & deactivation
 ACTIVATE_DIR=$PREFIX/etc/conda/activate.d

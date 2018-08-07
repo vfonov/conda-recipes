@@ -19,6 +19,7 @@ requirements:
     - openblas=0.2.20
   run:
     - perl
+    - openblas
 
 about:
   home: http://bic-mni.github.io/
@@ -28,3 +29,4 @@ about:
     This metaproject bundles multiple MINC-based packages that historically have been developed somewhat independently.
   doc_url: http://bic-mni.github.io/man-pages
   dev_url: https://github.com/BIC-MNI/minc-toolkit-v2
+  
