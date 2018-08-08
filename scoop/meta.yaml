@@ -1,0 +1,44 @@
+{% set name = "scoop" %}
+{% set version = "0.7.4" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: https://github.com/vfonov/scoop/archive/master.tar.gz
+  sha256: db203d1c5bd5fe64d3a324e42fb992f5fc86f1807b8117d02f117b9852b08452
+
+build:
+  number: 0
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv "
+
+requirements:
+  host:
+    - pip
+    - python
+    - greenlet >=0.3.4
+    - pyzmq >=13.1.0
+    - psutil >=0.6.1
+  run:
+    - python
+    - greenlet >=0.3.4
+    - pyzmq >=13.1.0
+    - psutil >=0.6.1
+
+test:
+  imports:
+    - test
+
+about:
+  home: http://pyscoop.org/
+  license: LGPL3
+  license_family: GPL
+  license_file: 
+  summary: Scalable COncurrent Operations in Python
+  doc_url: http://scoop.readthedocs.io
+  dev_url: https://github.com/vfonov/scoop
+
+extra:
+  recipe-maintainers:
+    - vfonov

@@ -1,9 +1,10 @@
 package:
-  name: minc-toolkit-v2
+  name: minc-toolkit-v2-monolith
   version: "1.9.17"
 
 source:
-  path: ../../minc-toolkit-v2
+  url: https://github.com/BIC-MNI/minc-toolkit-v2/releases/download/release-1.9.17-test/minc-toolkit-v2-afa4369cc475a9c83882ebada6e111cbe8c3a424.tar.gz
+  md5: f1e2419dc5a4357f439d7c29491361d6
 
 requirements:
   build:
@@ -14,39 +15,19 @@ requirements:
     - {{ compiler('cxx') }}      [linux]
     - {{ compiler('fortran') }}  [linux]
     - system                     [linux]
-    - openblas =0.2.20
-    - hdf5 <=1.8.18
-    - pcre
-    - libnetcdf <=4.5.0
-    - zlib
-    - gsl
-    - fftw
-    - jpeg=9b
-    - openjpeg
+    - openblas=0.2.20
     - perl
-    - expat
   run:
     - perl
     - openblas
-    - openblas =0.2.20
-    - hdf5 <=1.8.18
-    - pcre
-    - libnetcdf <=4.5.0
-    - zlib
-    - gsl
-    - fftw
-    - jpeg=9b
-    - openjpeg
-    - expat
 
 build:
-  number: 1
-
+  number: 0
 
 about:
   home: http://bic-mni.github.io/
   license: GPL3
-  summary: 'Toolkit for processing MRI scans (external libraries)'
+  summary: 'Toolkit for processing MRI scans (monolith package)'
   description: |
     This metaproject bundles multiple MINC-based packages that historically have been developed somewhat independently.
   doc_url: http://bic-mni.github.io/man-pages
