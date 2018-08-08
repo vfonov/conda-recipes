@@ -1,0 +1,46 @@
+{% set name = "minc2-simple" %}
+{% set version = "0.2.00" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: https://github.com/vfonov/minc2-simple/archive/v2.tar.gz
+  sha256: 7c7608335f4d261ce490ab22cb400666d233744d94efa0988612053f8b2c7ffa
+
+build:
+  number: 0
+  script: "{{ PYTHON }} python/setup.py install "
+
+requirements:
+  host:
+    - numpy
+    - pip
+    - python
+    - minc-toolkit-v2
+    - cffi
+    - six
+  build:
+    - numpy
+    - {{ compiler('c') }}        [linux]
+    - {{ compiler('cxx') }}      [linux]
+    - setuptools
+    - minc-toolkit-v2
+  run:
+    - minc-toolkit-v2
+    - python
+    - numpy
+    - six
+
+about:
+  home: https://github.com/BIC-MNI/pyezminc
+  license: GPL2
+  summary: 'Toolkit for processing MRI scans'
+  description: |
+    Python library for MINC IO, using cython and minc1 API
+  dev_url: https://github.com/BIC-MNI/pyezminc
+
+extra:
+  recipe-maintainers:
+    - vfonov
