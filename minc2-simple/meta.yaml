@@ -36,9 +36,9 @@ requirements:
 about:
   home: https://github.com/BIC-MNI/pyezminc
   license: GPL2
-  summary: 'Toolkit for processing MRI scans'
+  summary: 'Python library for MINC IO, using minc2 API and CFFI'
   description: |
-    Python library for MINC IO, using cython and minc1 API
+    Python library for MINC IO, using minc2 API and CFFI
   dev_url: https://github.com/BIC-MNI/pyezminc
 
 extra:
