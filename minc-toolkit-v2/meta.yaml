@@ -3,8 +3,8 @@ package:
   version: "1.9.17"
 
 source:
-  url: https://github.com/BIC-MNI/minc-toolkit-v2/releases/download/release-1.9.17-test/minc-toolkit-v2-2a5d2eac21e82c8ba36c2b6e4fa01e3b0e831668.tar.gz
-  sha256: bb4112e4ca00313fc55495a20d275c0a69a242c5ecbad3425497ddba2f851a02
+  url: https://github.com/BIC-MNI/minc-toolkit-v2/releases/download/release-1.9.17-test/minc-toolkit-v2-2376bd37f8fdc2e7c2cb87fc032200e1d33faafb.tar.gz
+  sha256: 0e4065a650e7ddadbd3502ee35d5db72ac69bd5b5ee16e95a57d9e7e27019fdc
 
 requirements:
   build:
@@ -22,10 +22,12 @@ requirements:
     - zlib
     - gsl
     - fftw
-    - jpeg=9b
+    - jpeg =9b
     - openjpeg
     - perl
     - expat
+  host:
+    - perl
   run:
     - perl
     - openblas
@@ -41,8 +43,7 @@ requirements:
     - expat
 
 build:
-  number: 0
-
+  number: 1
 
 about:
   home: http://bic-mni.github.io/
@@ -52,4 +53,3 @@ about:
     This metaproject bundles multiple MINC-based packages that historically have been developed somewhat independently.
   doc_url: http://bic-mni.github.io/man-pages
   dev_url: https://github.com/BIC-MNI/minc-toolkit-v2
-  
