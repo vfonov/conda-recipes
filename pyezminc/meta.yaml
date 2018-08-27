@@ -1,18 +1,16 @@
 {% set name = "pyezminc" %}
-{% set version = "1.2.01" %}
+{% set version = "1.3.00" %}
 
 package:
   name: "{{ name|lower }}"
   version: "{{ version }}"
 
 source:
-  fn: pyezminc-1.2.01.tar.gz
-  url: https://github.com/BIC-MNI/pyezminc/archive/release-1.2.01.tar.gz
-  sha1: d20047a07f59aa939633fd36dda5b7cd7979dfb2
+  path: /data/vfonov/src/pyezminc
 
 build:
-  number: 0
-  script: "{{ PYTHON }} setup.py test && {{ PYTHON }} setup.py install "
+  number: 1
+  script: "{{ PYTHON }} setup.py install "
 
 requirements:
   host:

@@ -1,0 +1,55 @@
+{% set name = "tflearn" %}
+{% set version = "0.3.2" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 3f58016039817450a89a49cd6973edbe4e0652aedd709289917e4746f5da940c
+
+build:
+  number: 0
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv "
+
+requirements:
+  host:
+    - numpy
+    - pillow
+    - pip
+    - python
+    - six
+    - tensorflow
+  run:
+    - numpy
+    - pillow
+    - python
+    - six
+    - tensorflow
+
+test:
+  imports:
+    - tests
+    - tflearn
+    - tflearn.datasets
+    - tflearn.estimators
+    - tflearn.estimators.ensemble
+    - tflearn.helpers
+    - tflearn.layers
+    - tflearn.models
+    - tflearn.templates
+    - tflearn.utilities
+
+about:
+  home: https://github.com/tflearn/tflearn
+  license: MIT
+  license_family: MIT
+  license_file: 
+  summary: Deep Learning Library featuring a higher-level API for TensorFlow
+  doc_url: 
+  dev_url: 
+
+extra:
+  recipe-maintainers:
+    - your-github-id-here

@@ -1,0 +1,39 @@
+{% set name = "colorlog" %}
+{% set version = "3.1.4" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 418db638c9577f37f0fae4914074f395847a728158a011be2a193ac491b9779d
+
+build:
+  number: 0
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv "
+
+requirements:
+  host:
+    - pip
+    - python
+  run:
+    - python
+
+test:
+  imports:
+    - colorlog
+    - colorlog.tests
+
+about:
+  home: https://github.com/borntyping/python-colorlog
+  license: MIT
+  license_family: MIT
+  license_file: 
+  summary: Log formatting with colors!
+  doc_url: 
+  dev_url: 
+
+extra:
+  recipe-maintainers:
+    - your-github-id-here

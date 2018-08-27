@@ -1,0 +1,61 @@
+{% set name = "nibabel" %}
+{% set version = "2.3.0" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: bf34aeb0f7ca52dc528ae4f842607cea307b334163857ff1d64d43068f637ada
+
+build:
+  number: 0
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv "
+
+requirements:
+  host:
+    - pip
+    - python
+    - numpy
+    - six
+  run:
+    - python
+    - numpy
+    - six
+
+test:
+  imports:
+    - nibabel
+    - nibabel.benchmarks
+    - nibabel.cifti2
+    - nibabel.cifti2.tests
+    - nibabel.cmdline
+    - nibabel.cmdline.tests
+    - nibabel.externals
+    - nibabel.externals.tests
+    - nibabel.freesurfer
+    - nibabel.freesurfer.tests
+    - nibabel.gifti
+    - nibabel.gifti.tests
+    - nibabel.nicom
+    - nibabel.nicom.tests
+    - nibabel.streamlines
+    - nibabel.streamlines.tests
+    - nibabel.testing
+    - nibabel.tests
+    - nisext
+    - nisext.tests
+
+about:
+  home: http://nipy.org/nibabel
+  license: MIT
+  license_family: MIT
+  license_file: 
+  summary: Access a multitude of neuroimaging data formats
+  doc_url: 
+  dev_url: 
+
+extra:
+  recipe-maintainers:
+    - your-github-id-here
