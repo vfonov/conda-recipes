@@ -18,12 +18,13 @@ requirements:
     - pip
     - python
   run:
+    - pip
     - python
 
-test:
-  imports:
-    - colorlog
-    - colorlog.tests
+#test:
+#  imports:
+#    - colorlog
+#    - colorlog.tests
 
 about:
   home: https://github.com/borntyping/python-colorlog
