@@ -43,7 +43,7 @@ requirements:
     - expat
 
 build:
-  number: 1
+  number: 2
 
 about:
   home: http://bic-mni.github.io/
