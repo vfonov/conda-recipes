@@ -1,0 +1,34 @@
+package:
+  name: libminc
+  version: "2.4.04"
+
+source:
+  url: https://github.com/BIC-MNI/libminc/archive/develop-conda.tar.gz
+  md5: 50335c1bfbb38f014e1b53ab04225934
+
+requirements:
+  build:
+    - cmake
+    - {{ compiler('c') }}        [linux]
+    - {{ compiler('cxx') }}      [linux]
+    - system                     [linux]
+    - hdf5 <=1.8.18
+    - libnetcdf <=4.5.0
+    - zlib
+  run:
+    - perl
+    - hdf5 <=1.8.18
+    - libnetcdf <=4.5.0
+    - zlib
+
+build:
+  number: 0
+
+about:
+  home: https://en.wikibooks.org/wiki/MINC
+  license: GPL3
+  summary: 'Medical imaging file support LIBMINC'
+  description: |
+    LIBMINC Library
+  doc_url: http://bic-mni.github.io/man-pages
+  dev_url: https://github.com/BIC-MNI/libminc
