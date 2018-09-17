@@ -4,7 +4,7 @@ package:
 
 source:
   url: https://github.com/BIC-MNI/libminc/archive/develop-conda.tar.gz
-  md5: 50335c1bfbb38f014e1b53ab04225934
+  md5: 94273ce01abe799f2e77664bf4e3d062
 
 requirements:
   build:
