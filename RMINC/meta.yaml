@@ -40,6 +40,9 @@ requirements:
     - r-rjson
     - r-DT
     - r-rlang
+    - minc-toolkit-v2
+    - zlib
+
   build:
     - {{posix}}make
     - {{ compiler('c') }}        [linux]
@@ -47,9 +50,28 @@ requirements:
     - {{ compiler('fortran') }}  [linux]
     - minc-toolkit-v2
     - r-base
+    - zlib
+
   run:
     - minc-toolkit-v2
+    - zlib
     - r-base
+    - r-dplyr
+    - r-batchtools
+    - r-tidyr
+    - r-lme4
+    - r-purrr
+    - r-shiny
+    - r-gridbase
+    - r-Rcpp
+    - r-Matrix
+    - r-tibble
+    - r-yaml
+    - r-data.tree
+    - r-visNetwork
+    - r-rjson
+    - r-DT
+    - r-rlang
 
 about:
   home: https://github.com/Mouse-Imaging-Centre/RMINC

@@ -28,6 +28,7 @@ requirements:
     - expat
   host:
     - perl
+    - zlib
   run:
     - perl
     - openblas
@@ -53,3 +54,4 @@ about:
     This metaproject bundles multiple MINC-based packages that historically have been developed somewhat independently.
   doc_url: http://bic-mni.github.io/man-pages
   dev_url: https://github.com/BIC-MNI/minc-toolkit-v2
+
