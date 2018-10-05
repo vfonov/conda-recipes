@@ -1,0 +1,122 @@
+{% set version = '0.9.11' %}
+
+{% set posix = 'm2-' if win else '' %}
+{% set native = 'm2w64-' if win else '' %}
+
+package:
+  name: r-batchtools
+  version: {{ version|replace("-", "_") }}
+
+source:
+  fn: batchtools_{{ version }}.tar.gz
+  url:
+    - {{ cran_mirror }}/src/contrib/batchtools_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/Archive/batchtools/batchtools_{{ version }}.tar.gz
+  sha256: 1b64166c944ed7693abe1496421b8cdb338097b9c338a98e76654b767d10b20a
+
+build:
+  merge_build_host: True  # [win]
+  # If this is a new build for the same version, increment the build number.
+  number: 0
+
+  # This is required to make R link correctly on Linux.
+  rpaths:
+    - lib/R/lib/
+    - lib/
+
+# Suggests: debugme, doParallel, doMPI, e1071, foreach, future, future.batchtools, knitr, parallelMap, ranger, rmarkdown, rpart, snow, testthat, tibble
+requirements:
+  build:
+    - {{ compiler('c') }}        # [not win]
+    - {{native}}toolchain        # [win]
+    - {{posix}}filesystem        # [win]
+    - {{posix}}make
+    - {{posix}}sed               # [win]
+    - {{posix}}coreutils         # [win]
+    - {{posix}}zip               # [win]
+
+  host:
+    - r-base
+    - r-r6
+    - r-backports 
+    - r-base64url 
+    - r-brew
+    - r-checkmate 
+    - r-data.table 
+    - r-digest 
+    - r-fs 
+    - r-progress 
+    - r-rappdirs
+    - r-stringi
+    - r-withr 
+
+  run:
+    - r-base
+    - {{native}}gcc-libs         # [win]
+    - r-r6
+    - r-backports 
+    - r-base64url 
+    - r-brew
+    - r-checkmate 
+    - r-data.table 
+    - r-digest 
+    - r-fs 
+    - r-progress 
+    - r-rappdirs
+    - r-stringi
+    - r-withr 
+
+test:
+  commands:
+    # You can put additional test commands to be run here.
+    - $R -e "library('batchtools')"           # [not win]
+    - "\"%R%\" -e \"library('batchtools')\""  # [win]
+
+  # You can also put a file called run_test.py, run_test.sh, or run_test.bat
+  # in the recipe that will be run at test time.
+
+  # requires:
+    # Put any additional test requirements here.
+
+about:
+  home: https://github.com/mllg/batchtools
+  license: LGPL-3
+  summary: As a successor of the packages 'BatchJobs' and 'BatchExperiments', this package provides
+    a parallel implementation of the Map function for high performance computing systems
+    managed by schedulers 'IBM Spectrum LSF' (<https://www.ibm.com/us-en/marketplace/hpc-workload-management>),
+    'OpenLava' (<http://www.openlava.org/>), 'Univa Grid Engine'/'Oracle Grid Engine'
+    (<http://www.univa.com/>), 'Slurm' (<http://slurm.schedmd.com/>), 'TORQUE/PBS' (<http://www.adaptivecomputing.com/products/open-source/torque/>),
+    or 'Docker Swarm' (<https://docs.docker.com/swarm/>). A multicore and socket mode
+    allow the parallelization on a local machines, and multiple machines can be hooked
+    up via SSH to create a makeshift cluster. Moreover, the package provides an abstraction
+    mechanism to define large-scale computer experiments in a well-organized and reproducible
+    way.
+  license_family: LGPL
+
+# The original CRAN metadata for this package was:
+
+# Package: batchtools
+# Title: Tools for Computation on Batch Systems
+# Version: 0.9.11
+# Authors@R: c( person("Michel", "Lang", NULL, "michellang@gmail.com", role = c("cre", "aut"), comment = c(ORCID = "0000-0001-9754-0393")), person("Bernd", "Bischl", NULL, "bernd_bischl@gmx.de", role = "aut"), person("Dirk", "Surmann", NULL, "surmann@statistik.tu-dortmund.de", role = "ctb", comment = c(ORCID = "0000-0003-0873-137X")) )
+# Description: As a successor of the packages 'BatchJobs' and 'BatchExperiments', this package provides a parallel implementation of the Map function for high performance computing systems managed by schedulers 'IBM Spectrum LSF' (<https://www.ibm.com/us-en/marketplace/hpc-workload-management>), 'OpenLava' (<http://www.openlava.org/>), 'Univa Grid Engine'/'Oracle Grid Engine' (<http://www.univa.com/>), 'Slurm' (<http://slurm.schedmd.com/>), 'TORQUE/PBS' (<http://www.adaptivecomputing.com/products/open-source/torque/>), or 'Docker Swarm' (<https://docs.docker.com/swarm/>). A multicore and socket mode allow the parallelization on a local machines, and multiple machines can be hooked up via SSH to create a makeshift cluster. Moreover, the package provides an abstraction mechanism to define large-scale computer experiments in a well-organized and reproducible way.
+# License: LGPL-3
+# URL: https://github.com/mllg/batchtools
+# BugReports: https://github.com/mllg/batchtools/issues
+# NeedsCompilation: yes
+# ByteCompile: yes
+# Encoding: UTF-8
+# Depends: R (>= 3.0.0), data.table (>= 1.11.2)
+# Imports: backports (>= 1.1.2), base64url (>= 1.1), brew, checkmate (>= 1.8.5), digest (>= 0.6.9), fs (>= 1.2.0), parallel, progress (>= 1.1.1), R6, rappdirs, stats, stringi, utils, withr (>= 2.0.0)
+# Suggests: debugme, doParallel, doMPI, e1071, foreach, future, future.batchtools, knitr, parallelMap, ranger, rmarkdown, rpart, snow, testthat, tibble
+# VignetteBuilder: knitr
+# RoxygenNote: 6.1.0
+# Packaged: 2018-08-16 08:20:25 UTC; lang
+# Author: Michel Lang [cre, aut] (<https://orcid.org/0000-0001-9754-0393>), Bernd Bischl [aut], Dirk Surmann [ctb] (<https://orcid.org/0000-0003-0873-137X>)
+# Maintainer: Michel Lang <michellang@gmail.com>
+# Repository: CRAN
+# Date/Publication: 2018-08-16 11:40:03 UTC
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml

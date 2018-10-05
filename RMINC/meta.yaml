@@ -1,0 +1,62 @@
+{% set name = "RMINC" %}
+{% set version = "1.5.2.0" %}
+
+# probably will not wotk on windows anyway 
+{% set posix = 'm2-' if win else '' %}
+{% set native = 'm2w64-' if win else '' %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: https://github.com/Mouse-Imaging-Centre/RMINC/releases/download/v1.5.2.0/RMINC_1.5.2.0.tar.gz
+  sha256: 91284c1ce13a29b30021bbb92a01edbe594251323c36c2040cc397381ec09dd7
+
+build:
+  number: 0
+
+  # This is required to make R link correctly on Linux.
+  rpaths:
+    - lib/R/lib/
+    - lib/
+
+requirements:
+  host:
+    - r-base
+    - r-dplyr
+    - r-batchtools
+    - r-tidyr
+    - r-lme4
+    - r-purrr
+    - r-shiny
+    - r-gridbase
+    - r-Rcpp
+    - r-Matrix
+    - r-tibble
+    - r-yaml
+    - r-data.tree
+    - r-visNetwork
+    - r-rjson
+    - r-DT
+    - r-rlang
+  build:
+    - {{posix}}make
+    - {{ compiler('c') }}        [linux]
+    - {{ compiler('cxx') }}      [linux]
+    - {{ compiler('fortran') }}  [linux]
+    - minc-toolkit-v2
+    - r-base
+  run:
+    - minc-toolkit-v2
+    - r-base
+
+about:
+  home: https://github.com/Mouse-Imaging-Centre/RMINC
+  summary: 'MINC inteface to R'
+  dev_url: https://github.com/Mouse-Imaging-Centre/RMINC
+
+extra:
+  recipe-maintainers:
+    - vfonov
+
