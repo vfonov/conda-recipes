@@ -1,0 +1,21 @@
+package:
+  name:  oniguruma
+  version: "6.9.0"
+
+source:
+  fn: onig-6.9.0.tar.gz
+  url: https://github.com/kkos/oniguruma/releases/download/v6.9.0/onig-6.9.0.tar.gz
+  sha256: 91bfb25e050ce3c301483204dd3f0d03a7c05472e20d48fe227a383d4534e7c9
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - make
+
+build:
+  number: 0
+
+about:
+  home: https://github.com/kkos/oniguruma
+  summary: 'Oniguruma is a modern and flexible regular expressions library.'
+  license: BSD
