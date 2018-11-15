@@ -3,8 +3,8 @@ package:
   version: "1.9.17"
 
 source:
-  url: https://github.com/BIC-MNI/minc-toolkit-v2/releases/download/release-1.9.17-test/minc-toolkit-v2-f0a80ab5a1846afebbcf5b8f795f7c445eff0b53.tar.gz
-  sha256: 5e2c852b1489b6b01ee23a3a661d08a5a8807be0af7682c662ee2cca8c628da3
+  url: https://github.com/BIC-MNI/minc-toolkit-v2/releases/download/release-1.9.17-test/minc-toolkit-v2-95f86e670597656e60a61c7b4c08835697a21d44.tar.bz2
+  sha256: 345dd8a1094df905628ec00a53e18b86be2e8e4353de9b0d7ee90655c3ab144c
 
 requirements:
   build:
@@ -15,7 +15,7 @@ requirements:
     - {{ compiler('cxx') }}      [linux]
     - {{ compiler('fortran') }}  [linux]
     - system                     [linux]
-    - openblas =0.2.20
+    - openblas =0.3.3
     - hdf5 <=1.8.18
     - pcre
     - libnetcdf <=4.5.0
@@ -31,8 +31,7 @@ requirements:
     - zlib
   run:
     - perl
-    - openblas
-    - openblas =0.2.20
+    - openblas =0.3.3
     - hdf5 <=1.8.18
     - pcre
     - libnetcdf <=4.5.0
@@ -44,7 +43,7 @@ requirements:
     - expat
 
 build:
-  number: 3
+  number: 4
 
 about:
   home: http://bic-mni.github.io/
