@@ -3,8 +3,8 @@ package:
   version: "1.9.17"
 
 source:
-  url: https://github.com/BIC-MNI/minc-toolkit-v2/releases/download/release-1.9.17-test/minc-toolkit-v2-95f86e670597656e60a61c7b4c08835697a21d44.tar.bz2
-  sha256: 345dd8a1094df905628ec00a53e18b86be2e8e4353de9b0d7ee90655c3ab144c
+  url: https://github.com/BIC-MNI/minc-toolkit-v2/releases/download/release-1.9.17-test/minc-toolkit-v2-1.9.17.tar.xz
+  sha256: 93bbabc58141b5cfd16609092bb37b2a740760b685247b7d360e0fa54806ad39
 
 requirements:
   build:
@@ -43,7 +43,7 @@ requirements:
     - expat
 
 build:
-  number: 4
+  number: 5
 
 about:
   home: http://bic-mni.github.io/
