@@ -1,0 +1,36 @@
+package:
+  name: povray
+  version: "3.7.0.8"
+
+source:
+  fn: v3.7.0.8.tar.gz
+  url: https://github.com/POV-Ray/povray/archive/v3.7.0.8.tar.gz
+  sha256: 53d11ebd2972fc452af168a00eb83aefb61387662c10784e81b63e44aa575de4
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }} 
+    - make
+    - libpng
+    - zlib
+    - jpeg
+    - libtiff
+    - libboost
+    - pthread-stubs
+  run:
+    - libpng
+    - zlib
+    - jpeg
+    - libtiff
+
+test:
+  commands:
+
+build:
+  number: 0
+
+about:
+  home: http://www.povray.org/
+  summary: 'POVRAY ray tracing'
+  license: GPL
