@@ -22,6 +22,7 @@ requirements:
     - libpng
     - zlib
     - jpeg
+    - libboost
     - libtiff
 
 test:
