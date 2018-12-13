@@ -1,3 +1,6 @@
 #! /bin/sh
 
-# TODO: unset variables here
+unset FALCON_HOME
+unset FALCON_BIN
+unset FALCON_SCRIPTS
+unset FALCON_DATA

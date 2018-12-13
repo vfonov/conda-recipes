@@ -1,3 +1,6 @@
 #! /bin/sh
 
-# TODO: add variables here ?
+export FALCON_HOME=${CONDA_PREFIX}
+export FALCON_BIN=${CONDA_PREFIX}/bin
+export FALCON_SCRIPTS=${CONDA_PREFIX}/bin
+export FALCON_DATA=${CONDA_PREFIX}/share/falcon
