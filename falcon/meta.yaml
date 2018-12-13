@@ -1,0 +1,28 @@
+package:
+  name: falcon
+  version: "0.0.1"
+
+source:
+  path: ../../falcon/
+
+requirements:
+  build:
+    - cmake
+    - {{ compiler('c') }}        [linux]
+    - {{ compiler('cxx') }}      [linux]
+    - minc-toolkit-v2
+    - libtiff
+  run:
+    - minc-toolkit-v2
+    - povray
+
+build:
+  number: 0
+
+about:
+  home: https://github.com/vfonov/falcon
+  license: GPL3
+  summary: 'Falcon cortical thickness measurement'
+  description: |
+    Falcon is a set of tools for cortical thickness measurements, to be made public sometime soon.
+
