@@ -15,6 +15,7 @@ requirements:
   run:
     - minc-toolkit-v2
     - povray
+    - libtiff
 
 build:
   number: 0
@@ -25,4 +26,3 @@ about:
   summary: 'Falcon cortical thickness measurement'
   description: |
     Falcon is a set of tools for cortical thickness measurements, to be made public sometime soon.
-

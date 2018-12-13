@@ -39,11 +39,15 @@ fi
 # build and install
 make -j${CPU_COUNT} && make install #
 
+
+# TODO: decide if we need this
+if false;then
 #create environment activation & deactivation
 ACTIVATE_DIR=$PREFIX/etc/conda/activate.d
 DEACTIVATE_DIR=$PREFIX/etc/conda/deactivate.d
 mkdir -p $ACTIVATE_DIR
 mkdir -p $DEACTIVATE_DIR
 
-cp $RECIPE_DIR/scripts/activate.sh $ACTIVATE_DIR/minc-toolkit-v2-activate.sh
-cp $RECIPE_DIR/scripts/deactivate.sh $DEACTIVATE_DIR/minc-toolkit-v2-deactivate.sh
+cp $RECIPE_DIR/scripts/activate.sh   $ACTIVATE_DIR/falcon-activate.sh
+cp $RECIPE_DIR/scripts/deactivate.sh $DEACTIVATE_DIR/falcon-deactivate.sh
+fi
