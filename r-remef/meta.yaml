@@ -1,0 +1,55 @@
+{% set version = '1.0.6.9000' %}
+
+{% set posix = 'm2-' if win else '' %}
+{% set native = 'm2w64-' if win else '' %}
+
+package:
+  name: r-remef
+  version: {{ version|replace("-", "_") }}
+
+source:
+  url:
+    - https://github.com/hohenstein/remef/archive/master.tar.gz
+  sha256: 8c6a8b70b799bc011f4a1e5bd5ead775e037fae49a920e2b42d42a82ba44d2de
+
+build:
+  merge_build_host: True  # [win]
+  # If this is a new build for the same version, increment the build number.
+  number: 0
+
+  # This is required to make R link correctly on Linux.
+  rpaths:
+    - lib/R/lib/
+    - lib/
+
+requirements:
+  build:
+    - {{posix}}zip               # [win]
+
+  host:
+    - r-base
+    - r-lme4
+
+  run:
+    - r-base
+    - r-lme4
+
+test:
+  commands:
+    # You can put additional test commands to be run here.
+    - $R -e "library('remef')"           # [not win]
+    - "\"%R%\" -e \"library('remef')\""  # [win]
+
+  # You can also put a file called run_test.py, run_test.sh, or run_test.bat
+  # in the recipe that will be run at test time.
+
+  # requires:
+    # Put any additional test requirements here.
+
+about:
+  home: https://github.com/hohenstein/remef
+  license: GPL
+  summary:  Provides tools for removing partial effects from data. Allows
+     preparing data for focussing on a subset of effects in complex statistical
+     models. Finds associated effects of lower or higher order for a given term
+     or coefficient.
