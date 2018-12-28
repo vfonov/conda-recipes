@@ -1,0 +1,104 @@
+{% set version = '0.2.2.0' %}
+
+{% set posix = 'm2-' if win else '' %}
+{% set native = 'm2w64-' if win else '' %}
+
+package:
+  name: r-glmmtmb
+  version: {{ version|replace("-", "_") }}
+
+source:
+  url:
+    - {{ cran_mirror }}/src/contrib/glmmTMB_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/Archive/glmmTMB/glmmTMB_{{ version }}.tar.gz
+  sha256: c5176f4f00ca4b900f49d3744bbcc6772fc31f431bcbf2431db64a5da99c97b2
+
+build:
+  merge_build_host: True  # [win]
+  # If this is a new build for the same version, increment the build number.
+  number: 0
+
+  # This is required to make R link correctly on Linux.
+  rpaths:
+    - lib/R/lib/
+    - lib/
+
+# Suggests: knitr, rmarkdown, testthat, MASS, lattice, ggplot2, mlmRev, bbmle (>= 1.0.19), pscl, MCMCpack, coda, reshape2, plyr
+requirements:
+  build:
+    - {{ compiler('c') }}        # [not win]
+    - {{ compiler('cxx') }}      # [not win]
+    - {{native}}toolchain        # [win]
+    - {{posix}}filesystem        # [win]
+    - {{posix}}make
+    - {{posix}}sed               # [win]
+    - {{posix}}coreutils         # [win]
+    - {{posix}}zip               # [win]
+
+  host:
+    - r-base
+    - r-matrix
+    - r-rcppeigen
+    - r-tmb >=1.7.13
+    - r-lme4 >=1.1_10
+    - r-nlme
+
+  run:
+    - r-base
+    - {{native}}gcc-libs         # [win]
+    - r-matrix
+    - r-rcppeigen
+    - r-tmb >=1.7.13
+    - r-lme4 >=1.1_10
+    - r-nlme
+
+test:
+  commands:
+    # You can put additional test commands to be run here.
+    - $R -e "library('glmmTMB')"           # [not win]
+    - "\"%R%\" -e \"library('glmmTMB')\""  # [win]
+
+  # You can also put a file called run_test.py, run_test.sh, or run_test.bat
+  # in the recipe that will be run at test time.
+
+  # requires:
+    # Put any additional test requirements here.
+
+about:
+  home: https://github.com/glmmTMB
+  license: AGPL-3
+  summary: Fit linear and generalized linear mixed models with various extensions, including
+    zero-inflation. The models are fitted using maximum likelihood estimation via 'TMB'
+    (Template Model Builder). Random effects are assumed to be Gaussian on the scale
+    of the linear predictor and are integrated out using the Laplace approximation.
+    Gradients are calculated using automatic differentiation.
+  license_family: AGPL
+
+# The original CRAN metadata for this package was:
+
+# Package: glmmTMB
+# Title: Generalized Linear Mixed Models using Template Model Builder
+# Version: 0.2.2.0
+# Authors@R: c(person("Arni","Magnusson",role="aut"), person("Hans","Skaug",role="aut"), person("Anders","Nielsen",role="aut"), person("Casper","Berg",role="aut"), person("Kasper","Kristensen",role="aut"), person("Martin","Maechler",role="aut"), person("Koen","van Bentham",role="aut"), person("Ben","Bolker",role="aut"), person("Mollie","Brooks",role=c("aut","cre"), email="mollieebrooks@gmail.com"))
+# Description: Fit linear and generalized linear mixed models with various extensions, including zero-inflation. The models are fitted using maximum likelihood estimation via 'TMB' (Template Model Builder). Random effects are assumed to be Gaussian on the scale of the linear predictor and are integrated out using the Laplace approximation. Gradients are calculated using automatic differentiation.
+# License: AGPL-3
+# Depends: R (>= 3.2.0)
+# Imports: methods, TMB (>= 1.7.13), lme4 (>= 1.1-10), Matrix, nlme
+# LinkingTo: TMB, RcppEigen
+# Suggests: knitr, rmarkdown, testthat, MASS, lattice, ggplot2, mlmRev, bbmle (>= 1.0.19), pscl, MCMCpack, coda, reshape2, plyr
+# VignetteBuilder: knitr
+# URL: https://github.com/glmmTMB
+# LazyData: TRUE
+# BugReports: https://github.com/glmmTMB/glmmTMB/issues
+# RoxygenNote: 6.0.1.9000
+# NeedsCompilation: yes
+# Author: Arni Magnusson [aut], Hans Skaug [aut], Anders Nielsen [aut], Casper Berg [aut], Kasper Kristensen [aut], Martin Maechler [aut], Koen van Bentham [aut], Ben Bolker [aut], Mollie Brooks [aut, cre]
+# Maintainer: Mollie Brooks <mollieebrooks@gmail.com>
+# Encoding: UTF-8
+# Packaged: 2018-07-02 12:46:33 UTC; molliebrooks
+# Repository: CRAN
+# Date/Publication: 2018-07-03 04:10:16 UTC
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml
