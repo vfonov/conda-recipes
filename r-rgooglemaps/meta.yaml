@@ -1,0 +1,87 @@
+{% set version = '1.4.3' %}
+
+{% set posix = 'm2-' if win else '' %}
+{% set native = 'm2w64-' if win else '' %}
+
+package:
+  name: r-rgooglemaps
+  version: {{ version|replace("-", "_") }}
+
+source:
+  url:
+    - {{ cran_mirror }}/src/contrib/RgoogleMaps_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/Archive/RgoogleMaps/RgoogleMaps_{{ version }}.tar.gz
+  sha256: 44cb62bcd23e5b4807e91c5825352eb8d38aaaeb3b38a8271ca9f21c1e1d4b19
+
+build:
+  merge_build_host: True  # [win]
+  # If this is a new build for the same version, increment the build number.
+  number: 0
+
+  # This is required to make R link correctly on Linux.
+  rpaths:
+    - lib/R/lib/
+    - lib/
+
+# Suggests: PBSmapping, maptools, sp, loa, RColorBrewer, leaflet
+requirements:
+  build:
+    - {{posix}}zip               # [win]
+
+  host:
+    - r-base
+    - r-png
+
+  run:
+    - r-base
+    - r-png
+
+test:
+  commands:
+    # You can put additional test commands to be run here.
+    - $R -e "library('RgoogleMaps')"           # [not win]
+    - "\"%R%\" -e \"library('RgoogleMaps')\""  # [win]
+
+  # You can also put a file called run_test.py, run_test.sh, or run_test.bat
+  # in the recipe that will be run at test time.
+
+  # requires:
+    # Put any additional test requirements here.
+
+about:
+  home: http://rgooglemaps.r-forge.r-project.org/QuickTutorial.html
+  license: GPL
+  summary: 'Serves two purposes: (i) Provide a comfortable R interface to query the Google server
+    for static maps, and (ii) Use the map as a background image to overlay plots within
+    R. This requires proper coordinate scaling.'
+
+  license_family: GPL
+  license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3'
+
+# The original CRAN metadata for this package was:
+
+# Package: RgoogleMaps
+# Type: Package
+# Title: Overlays on Static Maps
+# Version: 1.4.3
+# Date: 2018-11-07
+# Depends: R (>= 2.10)
+# Imports: graphics, stats, utils, grDevices, methods, png
+# Suggests: PBSmapping, maptools, sp, loa, RColorBrewer, leaflet
+# Author: Markus Loecher
+# URL: http://rgooglemaps.r-forge.r-project.org/QuickTutorial.html
+# Maintainer: Markus Loecher <markus.loecher@gmail.com>
+# Description: Serves two purposes: (i) Provide a comfortable R interface to query the Google server for static maps, and (ii) Use the map as a background image to overlay plots within R. This requires proper coordinate scaling.
+# License: GPL
+# LazyLoad: yes
+# Repository: CRAN
+# Repository/R-Forge/Project: rgooglemaps
+# Repository/R-Forge/Revision: 20
+# Repository/R-Forge/DateTimeStamp: 2017-02-09 15:29:12
+# Date/Publication: 2018-11-07 20:10:11 UTC
+# NeedsCompilation: no
+# Packaged: 2018-11-07 16:25:38 UTC; loecherm
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml
