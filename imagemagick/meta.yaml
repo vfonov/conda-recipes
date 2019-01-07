@@ -1,0 +1,72 @@
+{% set version = "7.0.8-23" %}
+
+package:
+  name: imagemagick
+  version: {{ version|replace("-", "_") }}
+
+source:
+  url: https://github.com/ImageMagick/ImageMagick/archive/{{ version }}.tar.gz
+  sha256: a5c4c13ae5e87063539f5ccc66417210ec5efaa49561126e0ba066bd0cb53be4
+
+build:
+  number: 0
+  skip: True  # [win]
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+
+  host:
+    - bzip2
+    - fftw
+    - fontconfig
+    - freetype
+    - giflib
+    - graphviz
+    - jbig
+    - jpeg
+    - libpng
+    - libtiff
+    - libwebp
+    - libxml2
+    - openjpeg
+    - pango
+    - perl
+    - pkg-config
+    - xz
+    - zlib
+  run:
+    - bzip2
+    - fftw
+    - fontconfig
+    - freetype
+    - giflib
+    - graphviz
+    - jbig
+    - jpeg
+    - libpng
+    - libtiff
+    - libwebp
+    - libxml2
+    - openjpeg
+    - pango
+    - perl
+    - pkg-config
+    - xz
+    - zlib
+
+test:
+  commands:
+    - convert -version
+    - Magick++-config --cflags
+    - conda inspect linkages -p $PREFIX $PKG_NAME  # [not win]
+    - conda inspect objects -p $PREFIX $PKG_NAME  # [osx]
+
+about:
+  home: http://www.imagemagick.org/
+  license: ImageMagick
+  license_file: LICENSE
+  summary: 'Software suite to create, edit, compose, or convert bitmap images.'
+
+
