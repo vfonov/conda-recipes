@@ -16,9 +16,10 @@ requirements:
     - minc-toolkit-v2
     - povray
     - libtiff
+    - imagemagick
 
 build:
-  number: 0
+  number: 1
 
 about:
   home: https://github.com/vfonov/falcon

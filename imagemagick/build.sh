@@ -34,7 +34,7 @@ find $PREFIX -name '*.la' -delete
             --with-fpx=no \
             --with-fontconfig=yes \
             --with-freetype=yes \
-            --with-gslib=no \
+            --without-gslib \
             --with-gvc=yes \
             --with-jbig=yes \
             --with-jpeg=yes \
@@ -45,7 +45,7 @@ find $PREFIX -name '*.la' -delete
             --with-magick-plus-plus=yes \
             --with-openexr=no \
             --with-openjp2=yes \
-            --with-pango=no \
+            --without-pango \
             --with-perl=no \
             --with-png=yes \
             --with-raqm=no \
