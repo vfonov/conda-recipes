@@ -47,7 +47,6 @@ requirements:
 test:
   commands:
     - minccalc -version
-    - minctracc -version
     - antsRegistration --version
 
 build:
