@@ -18,6 +18,8 @@ requirements:
     - libtiff
     - libboost
     - pthread-stubs
+    - autoconf
+    - automake
   run:
     - libpng
     - zlib

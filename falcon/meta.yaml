@@ -8,8 +8,9 @@ source:
 requirements:
   build:
     - cmake
-    - {{ compiler('c') }}        [linux]
-    - {{ compiler('cxx') }}      [linux]
+    - make
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }} 
     - minc-toolkit-v2
     - libtiff
   run:
@@ -17,6 +18,13 @@ requirements:
     - povray
     - libtiff
     - imagemagick
+
+test:
+  commands:
+    - falcon_cortex_initocs --version
+    - falcon_cortex_initics --version
+    - falcon_cortex_refine -help
+
 
 build:
   number: 1
