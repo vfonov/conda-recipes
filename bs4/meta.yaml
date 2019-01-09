@@ -1,0 +1,36 @@
+{% set name = "bs4" %}
+{% set version = "0.0.1" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 36ecea1fd7cc5c0c6e4a1ff075df26d50da647b75376626cc186e2212886dd3a
+
+build:
+  number: 0
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
+
+requirements:
+  host:
+    - beautifulsoup4
+    - pip
+    - python
+  run:
+    - beautifulsoup4
+    - python
+
+about:
+  home: https://pypi.python.org/pypi/beautifulsoup4
+  license: MIT
+  license_family: MIT
+  license_file: 
+  summary: Dummy package for Beautiful Soup
+  doc_url: 
+  dev_url: 
+
+extra:
+  recipe-maintainers:
+    - your-github-id-here
