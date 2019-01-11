@@ -24,6 +24,11 @@ if [[ -z ${MACOSX_DEPLOYMENT_TARGET} ]];then
     export CMAKE_LIBRARY_PATH=${CONDA_PREFIX}/lib:${CONDA_PREFIX}/lib64:${CONDA_PREFIX}/x86_64-conda_cos6-linux-gnu/sysroot/lib
 
 else # building on MacOSX
+    export CC=clang
+    export CXX=clang++
+    export LDFLAGS="-L$CONDA_PREFIX/lib -Wl,-rpath,$CONDA_PREFIX/lib -headerpad_max_install_names $LDFLAGS"
+    export LIBRARY_SEARCH_VAR=DYLD_FALLBACK_LIBRARY_PATH
+    #export MACOSX_DEPLOYMENT_TARGET="10.9"
     export CMAKE_LIBRARY_PATH=${CONDA_PREFIX}/lib:${CONDA_PREFIX}/lib64:
 fi
 

@@ -9,11 +9,12 @@ source:
 requirements:
   build:
     - cmake
+    - make
     - flex
     - bison
-    - {{ compiler('c') }}        [linux]
-    - {{ compiler('cxx') }}      [linux]
-    - {{ compiler('fortran') }}  [linux]
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}  
+    - {{ compiler('fortran') }}
     - system                     [linux]
     - openblas =0.3.3
     - hdf5 <=1.8.18
@@ -41,9 +42,15 @@ requirements:
     - jpeg=9b
     - openjpeg
     - expat
+    - flex
+
+test:
+  commands:
+    - minccalc -version
+    - antsRegistration --version
 
 build:
-  number: 5
+  number: 6
 
 about:
   home: http://bic-mni.github.io/
