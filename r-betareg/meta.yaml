@@ -1,0 +1,90 @@
+{% set version = '3.1-1' %}
+
+{% set posix = 'm2-' if win else '' %}
+{% set native = 'm2w64-' if win else '' %}
+
+package:
+  name: r-betareg
+  version: {{ version|replace("-", "_") }}
+
+source:
+  fn: betareg_{{ version }}.tar.gz
+  url:
+    - {{ cran_mirror }}/src/contrib/betareg_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/Archive/betareg/betareg_{{ version }}.tar.gz
+  sha256: 623f4fd4af2a4fdeb3338410dbbf2a89ef431e36ea17804ad9132f9f6fa78b1d
+
+build:
+  merge_build_host: True  # [win]
+  # If this is a new build for the same version, increment the build number.
+  number: 0
+
+  # This is required to make R link correctly on Linux.
+  rpaths:
+    - lib/R/lib/
+    - lib/
+
+# Suggests: car, lattice, partykit, strucchange
+requirements:
+  build:
+    - {{posix}}zip               # [win]
+
+  host:
+    - r-base
+    - r-formula
+    - r-flexmix
+    - r-lmtest
+    - r-modeltools
+    - r-sandwich
+
+  run:
+    - r-base
+    - r-formula
+    - r-flexmix
+    - r-lmtest
+    - r-modeltools
+    - r-sandwich
+
+test:
+  commands:
+    # You can put additional test commands to be run here.
+    - $R -e "library('betareg')"           # [not win]
+    - "\"%R%\" -e \"library('betareg')\""  # [win]
+
+  # You can also put a file called run_test.py, run_test.sh, or run_test.bat
+  # in the recipe that will be run at test time.
+
+  # requires:
+    # Put any additional test requirements here.
+
+about:
+  home: https://CRAN.R-project.org/package=betareg
+  license: GPL-2 | GPL-3
+  summary: Beta regression for modeling beta-distributed dependent variables, e.g., rates and
+    proportions. In addition to maximum likelihood regression (for both mean and precision
+    of a beta-distributed response), bias-corrected and bias-reduced estimation as well
+    as finite mixture models and recursive partitioning for beta regressions are provided.
+  license_family: GPL3
+
+# The original CRAN metadata for this package was:
+
+# Package: betareg
+# Version: 3.1-1
+# Date: 2018-09-26
+# Title: Beta Regression
+# Authors@R: c(person(given = "Achim", family = "Zeileis", role = c("aut", "cre"), email = "Achim.Zeileis@R-project.org"), person(given = "Francisco", family = "Cribari-Neto", role = "aut", email = "cribari@ufpe.br"), person(given = "Bettina", family = "Gruen", role = "aut", email = "Bettina.Gruen@jku.at"), person(given = "Ioannis", family = "Kosmidis", role = "aut", email = "ioannis@stats.ucl.ac.uk"), person(given = c("Alexandre", "B."), family = "Simas", role = "ctb", comment = "earlier version by"), person(given = c("Andrea", "V."), family = "Rocha", role = "ctb", comment = "earlier version by"))
+# Description: Beta regression for modeling beta-distributed dependent variables, e.g., rates and proportions. In addition to maximum likelihood regression (for both mean and precision of a beta-distributed response), bias-corrected and bias-reduced estimation as well as finite mixture models and recursive partitioning for beta regressions are provided.
+# Depends: R (>= 3.0.0)
+# Imports: graphics, grDevices, methods, stats, flexmix, Formula, lmtest, modeltools, sandwich
+# Suggests: car, lattice, partykit, strucchange
+# License: GPL-2 | GPL-3
+# NeedsCompilation: no
+# Packaged: 2018-09-26 21:18:22 UTC; zeileis
+# Author: Achim Zeileis [aut, cre], Francisco Cribari-Neto [aut], Bettina Gruen [aut], Ioannis Kosmidis [aut], Alexandre B. Simas [ctb] (earlier version by), Andrea V. Rocha [ctb] (earlier version by)
+# Maintainer: Achim Zeileis <Achim.Zeileis@R-project.org>
+# Repository: CRAN
+# Date/Publication: 2018-09-28 16:09:17 UTC
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml
