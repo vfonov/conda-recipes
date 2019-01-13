@@ -39,6 +39,9 @@ requirements:
     - {{posix}}make
     - {{posix}}coreutils         # [win]
     - {{posix}}zip               # [win]
+    - geos
+    - libgdal
+    - proj4
 
   host:
     - r-base

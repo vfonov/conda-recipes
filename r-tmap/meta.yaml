@@ -41,6 +41,7 @@ requirements:
     - r-tmaptools >=2.0_1
     - r-units >=0.6_1
     - r-viridislite
+    - r-codetools
 
   run:
     - r-base
@@ -55,6 +56,7 @@ requirements:
     - r-tmaptools >=2.0_1
     - r-units >=0.6_1
     - r-viridislite
+    - r-codetools
 
 test:
   commands:

@@ -44,6 +44,7 @@ requirements:
     - r-sp
     - r-units >=0.5_1
     - r-viridislite
+    - r-codetools
 
   run:
     - r-base
@@ -61,6 +62,7 @@ requirements:
     - r-sp
     - r-units >=0.5_1
     - r-viridislite
+    - r-codetools
 
 test:
   commands:
