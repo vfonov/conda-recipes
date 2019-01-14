@@ -1,0 +1,75 @@
+{% set version = "0.4.1" %}
+{% set commit = "a24163a95edb193ff7b06e98cd69bf7cfd4c0d2f" %}
+
+package:
+  name: pytorch
+  version: {{ version }}
+
+source:
+  git_url: https://github.com/pytorch/pytorch.git
+  git_tag: {{ commit }}
+  patches:
+    - 0001-Add-DCUDA_rt_LIBRARY-to-cmake-command.patch
+    - 0002-lazy-bind-C-extension.patch
+    - 0003-insure-system-nccl-is-used.patch
+    - 0004-always-add-librt-to-requirements.patch
+    # https://github.com/pytorch/pytorch/issues/4499
+    # merged upstream in https://github.com/facebookincubator/gloo/pull/127
+    - define_speed_unknown.patch
+
+build:
+  number: 0
+  detect_binary_files_with_prefix: False
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+  host:
+    - cmake
+    # GPU requirements
+    - cudatoolkit {{ cudatoolkit }}*
+    - cudnn {{ cudnn }}*
+    - nccl 
+    # other requirements
+    - python
+    - numpy
+    - setuptools
+    - pyyaml
+    - cffi
+    - openblas-devel {{openblas}}
+    - typing
+    - ninja
+    - magma
+
+  run:
+    # GPU requirements
+    - cudatoolkit {{ cudatoolkit }}*
+    - cudnn {{ cudnn }}*
+    - {{ pin_compatible('nccl') }}
+    # other requirements
+    - python
+    - {{ pin_compatible('numpy') }}
+    - cffi
+    - ninja
+    - openblas {{openblas}}
+
+test:
+  requires:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - setuptools
+  imports:
+    - torch
+  source_files:
+    - test
+  commands:
+    - python ./test/run_test.py -x cpp_extensions || true
+
+about:
+  home: http://pytorch.org/
+  license: BSD 3-Clause
+  license_family: BSD
+  license_file: LICENSE
+  summary: PyTorch is an optimized tensor library for deep learning using GPUs and CPUs.
+

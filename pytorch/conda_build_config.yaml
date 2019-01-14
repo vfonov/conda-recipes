@@ -1,0 +1,12 @@
+c_compiler_version:
+  - 5.4
+cxx_compiler_version:
+  - 5.4
+cudatoolkit:
+  - 9.0
+cudnn:
+  - 7.1
+openblas:
+  - 0.3.3
+python:
+  - 3.6
