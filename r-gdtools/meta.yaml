@@ -1,0 +1,96 @@
+{% set version = '0.1.7' %}
+
+{% set posix = 'm2-' if win else '' %}
+{% set native = 'm2w64-' if win else '' %}
+
+package:
+  name: r-gdtools
+  version: {{ version|replace("-", "_") }}
+
+source:
+  url:
+    - {{ cran_mirror }}/src/contrib/gdtools_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/Archive/gdtools/gdtools_{{ version }}.tar.gz
+  sha256: c631af4657130f0f33cf90cb6c8b6ffe459630bfca773dbdb38eabeaaf4e5388
+
+build:
+  merge_build_host: True  # [win]
+  # If this is a new build for the same version, increment the build number.
+  number: 0
+
+  # This is required to make R link correctly on Linux.
+  rpaths:
+    - lib/R/lib/
+    - lib/
+
+# Suggests: htmltools, testthat, fontquiver (>= 0.2.0), curl
+requirements:
+  build:
+    - {{ compiler('c') }}        # [not win]
+    - {{ compiler('cxx') }}      # [not win]
+    - {{native}}toolchain        # [win]
+    - {{posix}}filesystem        # [win]
+    - {{posix}}sed               # [win]
+    - {{posix}}grep              # [win]
+    - {{posix}}autoconf
+    - {{posix}}automake          # [not win]
+    - {{posix}}automake-wrapper  # [win]
+    - {{posix}}pkg-config
+    - {{posix}}make
+    - {{posix}}coreutils         # [win]
+    - {{posix}}zip               # [win]
+
+  host:
+    - r-base
+    - r-rcpp >=0.12.12
+    - r-withr
+
+  run:
+    - r-base
+    - {{native}}gcc-libs         # [win]
+    - r-rcpp >=0.12.12
+    - r-withr
+
+test:
+  commands:
+    # You can put additional test commands to be run here.
+    - $R -e "library('gdtools')"           # [not win]
+    - "\"%R%\" -e \"library('gdtools')\""  # [win]
+
+  # You can also put a file called run_test.py, run_test.sh, or run_test.bat
+  # in the recipe that will be run at test time.
+
+  # requires:
+    # Put any additional test requirements here.
+
+about:
+  home: https://CRAN.R-project.org/package=gdtools
+  license: GPL-3 | file LICENSE
+  summary: Useful tools for writing vector graphics devices.
+  license_family: GPL3
+
+# The original CRAN metadata for this package was:
+
+# Package: gdtools
+# Version: 0.1.7
+# License: GPL-3 | file LICENSE
+# Title: Utilities for Graphical Rendering
+# Description: Useful tools for writing vector graphics devices.
+# Authors@R: c( person("David", "Gohel", , "david.gohel@ardata.fr", c("aut", "cre")), person("Hadley", "Wickham", , "hadley@rstudio.com", "aut"), person("Lionel", "Henry", , "lionel@rstudio.com", "aut"), person("Jeroen", "Ooms", , "jeroen@berkeley.edu", "aut"), person("Yixuan", "Qiu", role = "ctb"), person("R Core Team", role = "cph", comment = "Cairo code from X11 device"), person("RStudio", role = "cph") )
+# LazyData: TRUE
+# Imports: Rcpp (>= 0.12.12), withr
+# Suggests: htmltools, testthat, fontquiver (>= 0.2.0), curl
+# LinkingTo: Rcpp
+# SystemRequirements: cairo
+# BugReports: https://github.com/davidgohel/gdtools/issues
+# RoxygenNote: 6.0.1.9000
+# NeedsCompilation: yes
+# Packaged: 2018-02-27 16:03:31 UTC; davidgohel
+# Author: David Gohel [aut, cre], Hadley Wickham [aut], Lionel Henry [aut], Jeroen Ooms [aut], Yixuan Qiu [ctb], R Core Team [cph] (Cairo code from X11 device), RStudio [cph]
+# Maintainer: David Gohel <david.gohel@ardata.fr>
+# Repository: CRAN
+# Date/Publication: 2018-02-27 17:15:37 UTC
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml

@@ -1,0 +1,54 @@
+{% set version = '0.3.0.0' %}
+
+{% set posix = 'm2-' if win else '' %}
+{% set native = 'm2w64-' if win else '' %}
+
+package:
+  name: r-spdatalarge
+  version: {{ version|replace("-", "_") }}
+
+source:
+  url:
+    - https://github.com/Nowosad/spDataLarge/archive/76c2e020c6de967d207769f26f921a4377b80638.tar.gz
+  sha256: 47f33ae0ada6b3fc16a940af5fc6de15ef1cc5e2287f949de8cb9e6039761943
+
+build:
+  merge_build_host: True  # [win]
+  # If this is a new build for the same version, increment the build number.
+  number: 0
+
+  # This is required to make R link correctly on Linux.
+  rpaths:
+    - lib/R/lib/
+    - lib/
+
+# Suggests: foreign, maptools, raster, rgdal, sf, sp, spDataLarge (>= 0.2.7.0), spdep
+requirements:
+  build:
+    - rtools                     # [win]
+
+  host:
+    - r-base
+    - r-raster
+
+  run:
+    - r-raster
+
+test:
+  commands:
+    # You can put additional test commands to be run here.
+    - $R -e "library('spDataLarge')"           # [not win]
+    - "\"%R%\" -e \"library('spDataLarge')\""  # [win]
+
+  # You can also put a file called run_test.py, run_test.sh, or run_test.bat
+  # in the recipe that will be run at test time.
+
+  # requires:
+    # Put any additional test requirements here.
+
+about:
+  home: https://github.com/Nowosad/spDataLarge
+  license: CC0
+  summary: Large datasets for spatial analysis. 
+  license_family: CC
+

@@ -1,0 +1,44 @@
+{% set version = "0.1" %}
+# adopted from https://github.com/conda-forge/cgal-feedstock
+# split cgal into cgal and cgal-swig
+
+
+package:
+  name: cgal-swig
+  version: {{ version }}
+
+source:
+  git_url: https://github.com/CGAL/cgal-swig-bindings.git
+  git_rev: b55e0b836f8e16a97321b293cfa3394aeb4260e9
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - swig
+    - cmake
+    - eigen
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - cgal
+  host:
+    - python
+    - boost-cpp
+    - mpfr
+    - cgal
+  run:
+    - python
+    - boost-cpp
+    - mpfr
+    - cgal
+
+test:
+  imports:
+    - CGAL
+
+about:
+  home: http://www.cgal.org/
+  license: GPL3/LGPL3
+  summary: Computational Geometry Algorithms Library
+

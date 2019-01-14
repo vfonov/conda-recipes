@@ -1,0 +1,129 @@
+{% set version = '2.6.3' %}
+
+{% set posix = 'm2-' if win else '' %}
+{% set native = 'm2w64-' if win else '' %}
+
+package:
+  name: r-mapview
+  version: {{ version|replace("-", "_") }}
+
+source:
+  url:
+    - {{ cran_mirror }}/src/contrib/mapview_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/Archive/mapview/mapview_{{ version }}.tar.gz
+  sha256: 16560c48fb0536879e89e64aaf8abe80dc8b36679b1f5f0ec20745a307136b38
+
+build:
+  merge_build_host: True  # [win]
+  # If this is a new build for the same version, increment the build number.
+  number: 0
+
+  # This is required to make R link correctly on Linux.
+  rpaths:
+    - lib/R/lib/
+    - lib/
+
+# Suggests: covr, dplyr, knitr, lwgeom, rmarkdown, stars, testthat
+requirements:
+  build:
+    - {{ compiler('c') }}        # [not win]
+    - {{ compiler('cxx') }}      # [not win]
+    - {{native}}toolchain        # [win]
+    - {{posix}}filesystem        # [win]
+    - {{posix}}make
+    - {{posix}}sed               # [win]
+    - {{posix}}coreutils         # [win]
+    - {{posix}}zip               # [win]
+
+  host:
+    - r-base
+    - r-rcpp >=0.11.3
+    - r-base64enc
+    - r-brew
+    - r-htmltools
+    - r-htmlwidgets
+    - r-lattice
+    - r-leaflet >=2.0.0
+    - r-png
+    - r-raster
+    - r-satellite
+    - r-scales >=0.2.5
+    - r-sf
+    - r-sp
+    - r-svglite
+    - r-uuid
+    - r-viridislite
+    - r-webshot
+
+  run:
+    - r-base
+    - {{native}}gcc-libs         # [win]
+    - r-rcpp >=0.11.3
+    - r-base64enc
+    - r-brew
+    - r-htmltools
+    - r-htmlwidgets
+    - r-lattice
+    - r-leaflet >=2.0.0
+    - r-png
+    - r-raster
+    - r-satellite
+    - r-scales >=0.2.5
+    - r-sf
+    - r-sp
+    - r-svglite
+    - r-uuid
+    - r-viridislite
+    - r-webshot
+
+test:
+  commands:
+    # You can put additional test commands to be run here.
+    - $R -e "library('mapview')"           # [not win]
+    - "\"%R%\" -e \"library('mapview')\""  # [win]
+
+  # You can also put a file called run_test.py, run_test.sh, or run_test.bat
+  # in the recipe that will be run at test time.
+
+  # requires:
+    # Put any additional test requirements here.
+
+about:
+  home: https://github.com/r-spatial/mapview
+  license: GPL (>= 3) | file LICENSE
+  summary: Quickly and conveniently create interactive visualisations of spatial data with or
+    without background maps. Attributes of displayed features are fully queryable via
+    pop-up windows. Additional functionality includes methods to visualise true- and
+    false-color raster images, bounding boxes, small multiples and 3D raster data cubes.
+  license_family: GPL3
+
+# The original CRAN metadata for this package was:
+
+# Type: Package
+# Package: mapview
+# Title: Interactive Viewing of Spatial Data in R
+# Version: 2.6.3
+# Date: 2018-12-19
+# Authors@R:  c(person(given = "Tim", family = "Appelhans", role = c("cre", "aut"), email = "tim.appelhans@gmail.com"), person(given = "Florian", family = "Detsch", role = "aut", email = "fdetsch@web.de"), person(given = "Christoph", family = "Reudenbach", role = "aut", email = "reudenbach@geo.uni-marburg.de"), person(given = "Stefan", family = "Woellauer", role = "aut", email = "stephan.woellauer@geo.uni-marburg.de"), person(given = "Spaska", family = "Forteva", role = "ctb", email = "spaska.forteva@geo.uni-marburg.de"), person(given = "Thomas", family = "Nauss", role = "ctb", email = "nauss@staff.uni-marburg.de"), person(given = "Edzer", family = "Pebesma", role = "ctb"), person(given = "Kenton", family = "Russell", role = "ctb"), person(given = "Michael", family = "Sumner", role = "ctb"), person(given = "Jochen", family = "Darley", role = "ctb", email = "Debugger@jedimasters.de"), person(given = "Pierre", family = "Roudier", role = "ctb"), person(given = "Patrick", family = "Schratz", role = "ctb"), person(given = "Environmental Informatics Marburg", role = "ctb"))
+# Maintainer: Tim Appelhans <tim.appelhans@gmail.com>
+# Description: Quickly and conveniently create interactive visualisations of spatial data with or without background maps. Attributes of displayed features are fully queryable via pop-up windows. Additional functionality includes methods to visualise true- and false-color raster images, bounding boxes, small multiples and 3D raster data cubes.
+# License: GPL (>= 3) | file LICENSE
+# URL: https://github.com/r-spatial/mapview
+# BugReports: https://github.com/r-spatial/mapview/issues
+# Depends: methods, R (>= 2.10)
+# Imports: base64enc, brew, htmltools, htmlwidgets, lattice, leaflet (>= 2.0.0), png, raster, Rcpp (>= 0.11.3), satellite, scales (>= 0.2.5), sf, sp, svglite, uuid, viridisLite, webshot
+# Suggests: covr, dplyr, knitr, lwgeom, rmarkdown, stars, testthat
+# LinkingTo: Rcpp
+# ByteCompile: yes
+# LazyData: TRUE
+# RoxygenNote: 6.1.0
+# SystemRequirements: GNU make
+# NeedsCompilation: yes
+# Packaged: 2018-12-19 16:28:14 UTC; timpanse
+# Author: Tim Appelhans [cre, aut], Florian Detsch [aut], Christoph Reudenbach [aut], Stefan Woellauer [aut], Spaska Forteva [ctb], Thomas Nauss [ctb], Edzer Pebesma [ctb], Kenton Russell [ctb], Michael Sumner [ctb], Jochen Darley [ctb], Pierre Roudier [ctb], Patrick Schratz [ctb], Environmental Informatics Marburg [ctb]
+# Repository: CRAN
+# Date/Publication: 2018-12-19 23:40:03 UTC
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml
