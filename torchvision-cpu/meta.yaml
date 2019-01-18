@@ -1,0 +1,46 @@
+{% set version = "0.2.1" %}
+
+package:
+  name: torchvision-cpu
+  version: {{ version }}
+
+source:
+  fn: torchvision-{{ version }}.tar.gz
+  url: https://github.com/pytorch/vision/archive/v{{ version }}.tar.gz
+  sha256: 91f1e21121dca7e14ec35b5f2127da77c8c52e61d39957ab5dd4a719a837a04c
+
+build:
+  number: 0
+  skip: True  # [not linux64]
+  script: python setup.py install --single-version-externally-managed --record=record.txt
+
+requirements:
+  host:
+    - python
+    - setuptools
+
+  run:
+    - python
+    - pillow >=4.1.1
+    - numpy
+    - pytorch-cpu
+    - six
+
+test:
+  imports:
+    - torchvision
+    - torchvision.datasets
+    - torchvision.models
+    - torchvision.transforms
+    - torchvision.utils
+
+about:
+  home: http://pytorch.org/
+  license: BSD 3-Clause
+  license_family: BSD
+  license_file: LICENSE
+  summary: Image and video datasets and models for torch deep learning
+  dev_url: https://github.com/pytorch/vision
+  doc_url: http://pytorch.org/docs/master/torchvision
+
+

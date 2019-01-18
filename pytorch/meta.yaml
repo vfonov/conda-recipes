@@ -1,21 +1,22 @@
-{% set version = "0.4.1" %}
-{% set commit = "a24163a95edb193ff7b06e98cd69bf7cfd4c0d2f" %}
+{% set version = "1.0.0" %}
+{% set commit = "db5d3131d16f57abd4f13d3f4b885d5f67bf6644" %}
 
 package:
-  name: pytorch
+  name: pytorch-cpu
   version: {{ version }}
 
 source:
   git_url: https://github.com/pytorch/pytorch.git
   git_tag: {{ commit }}
   patches:
-    - 0001-Add-DCUDA_rt_LIBRARY-to-cmake-command.patch
-    - 0002-lazy-bind-C-extension.patch
-    - 0003-insure-system-nccl-is-used.patch
-    - 0004-always-add-librt-to-requirements.patch
+     - fix_intel_mkl_issue55.patch
+#    - 0001-Add-DCUDA_rt_LIBRARY-to-cmake-command.patch
+#    - 0002-lazy-bind-C-extension.patch
+#    - 0003-insure-system-nccl-is-used.patch
+#    - 0004-always-add-librt-to-requirements.patch
     # https://github.com/pytorch/pytorch/issues/4499
     # merged upstream in https://github.com/facebookincubator/gloo/pull/127
-    - define_speed_unknown.patch
+#    - define_speed_unknown.patch
 
 build:
   number: 0
@@ -25,13 +26,13 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - nccl 
+#    - nccl 
   host:
     - cmake
     # GPU requirements
-    - cudatoolkit {{ cudatoolkit }}*
-    - cudnn {{ cudnn }}*
-    - nccl 
+#    - cudatoolkit {{ cudatoolkit }}*
+#    - cudnn {{ cudnn }}*
+#    - nccl 
     # other requirements
     - python
     - numpy
@@ -41,19 +42,19 @@ requirements:
     - openblas-devel {{openblas}}
     - typing
     - ninja
-    - magma
+#    - magma
 
   run:
     # GPU requirements
-    - cudatoolkit {{ cudatoolkit }}*
-    - cudnn {{ cudnn }}*
-    - {{ pin_compatible('nccl') }}
+#    - cudatoolkit {{ cudatoolkit }}*
+#    - cudnn {{ cudnn }}*
+#    - {{ pin_compatible('nccl') }}
     # other requirements
     - python
     - {{ pin_compatible('numpy') }}
     - cffi
     - ninja
-    - openblas {{openblas}}
+    - openblas
 
 test:
   requires:
@@ -72,5 +73,5 @@ about:
   license: BSD 3-Clause
   license_family: BSD
   license_file: LICENSE
-  summary: PyTorch is an optimized tensor library for deep learning using GPUs and CPUs.
+  summary: PyTorch is an optimized tensor library for deep learning using GPUs and CPUs. This build is for CPU only.
 

@@ -1,0 +1,12 @@
+--- third_party/ideep/mkl-dnn/src/cpu/jit_generator.hpp.save	2019-01-15 11:24:46.089120218 -0500
++++ third_party/ideep/mkl-dnn/src/cpu/jit_generator.hpp	2019-01-15 11:25:35.871788670 -0500
+@@ -719,7 +719,8 @@
+             FILE *fp = mkldnn_fopen(fname, "w+");
+             // Failure to dump code is not fatal
+             if (fp) {
+-                fwrite(code, getSize(), 1, fp);
++                size_t unused = fwrite(code, getSize(), 1, fp);
++                (void)unused;
+                 fclose(fp);
+             }
+         }
