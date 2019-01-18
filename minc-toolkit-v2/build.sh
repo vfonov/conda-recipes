@@ -41,6 +41,7 @@ if [ ${minctoolkit_variant} == "lite" ];then
     -DMT_BUILD_C3D:BOOL=OFF \
     -DMT_BUILD_ELASTIX:BOOL=OFF "
 else
+ building_itk=yes
  CMAKE_FLAGS=" \
   -DMT_BUILD_ITK_TOOLS:BOOL=ON \
   -DOpenBLAS_DIR:PATH=${CONDA_PREFIX}/lib/cmake/openblas \
@@ -119,8 +120,6 @@ cmake .. \
       -DZLIB_LIBRARY_RELEASE:FILEPATH=${CONDA_PREFIX}/lib/libz${SHLIB_EXT} \
       ${CMAKE_FLAGS}
 
-
-
 # build and install
 make -j${CPU_COUNT} 
 
@@ -128,6 +127,15 @@ make -j${CPU_COUNT}
 mkdir -p ${PREFIX}/share
 
 make install 
+
+# a HACK to fix cmake dependencies tracking
+# TODO: find a better solution
+if [ ! -z $building_itk ];then
+	for i in ${PREFIX}/lib/cmake/ITK-*/*cmake ${PREFIX}/lib/cmake/ITK-*/Modules/*cmake;do
+		sed -i.save "s#${CONDA_PREFIX}/lib/##g" $i
+  done
+fi
+
 
 #create environment activation & deactivation
 ACTIVATE_DIR=$PREFIX/etc/conda/activate.d
