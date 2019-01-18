@@ -3,9 +3,10 @@ package:
   version: "1.9.17"
 
 source:
-  url: https://github.com/BIC-MNI/minc-toolkit-v2/releases/download/release-1.9.17-test/minc-toolkit-v2-1.9.17.tar.xz
-  sha256: 93bbabc58141b5cfd16609092bb37b2a740760b685247b7d360e0fa54806ad39
-
+#  url: https://github.com/BIC-MNI/minc-toolkit-v2/releases/download/release-1.9.17-test/minc-toolkit-v2-1.9.17.tar.xz
+#  sha256: 93bbabc58141b5cfd16609092bb37b2a740760b685247b7d360e0fa54806ad39
+   path: /home/vfonov/src/minc-toolkit-v2
+	
 requirements:
   build:
     - cmake
@@ -15,8 +16,8 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}  
     - {{ compiler('fortran') }}
-    - system                     [linux]
-    - openblas =0.3.3
+    - system                     # [linux]
+    - openblas =0.3.3            # [minctoolkit_variant == 'openblas'] 
     - hdf5 <=1.8.18
     - pcre
     - libnetcdf <=4.5.0
@@ -32,7 +33,7 @@ requirements:
     - zlib
   run:
     - perl
-    - openblas =0.3.3
+    - openblas =0.3.3        # [minctoolkit_variant == 'openblas'] 
     - hdf5 <=1.8.18
     - pcre
     - libnetcdf <=4.5.0
@@ -41,16 +42,17 @@ requirements:
     - fftw
     - jpeg=9b
     - openjpeg
-    - expat
+    - expat                 # [minctoolkit_variant != 'lite'] 
     - flex
 
 test:
   commands:
     - minccalc -version
-    - antsRegistration --version
+    - antsRegistration --version #[minctoolkit_variant != 'lite'] 
 
 build:
-  number: 6
+  number: 7
+  string: {{ minctoolkit_variant }}_h{{PKG_HASH}}_{{ PKG_BUILDNUM }}
 
 about:
   home: http://bic-mni.github.io/

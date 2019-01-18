@@ -32,10 +32,35 @@ else # building on MacOSX
     export CMAKE_LIBRARY_PATH=${CONDA_PREFIX}/lib:${CONDA_PREFIX}/lib64:
 fi
 
+
+if [ ${minctoolkit_variant} == "lite" ];then
+  CMAKE_FLAGS=" \
+    -DMT_BUILD_LITE:BOOL=ON \
+    -DMT_BUILD_ITK_TOOLS:BOOL=OFF \
+    -DMT_BUILD_ANTS:BOOL=OFF \
+    -DMT_BUILD_C3D:BOOL=OFF \
+    -DMT_BUILD_ELASTIX:BOOL=OFF "
+else
+ CMAKE_FLAGS=" \
+  -DMT_BUILD_ITK_TOOLS:BOOL=ON \
+  -DOpenBLAS_DIR:PATH=${CONDA_PREFIX}/lib/cmake/openblas \
+  -DMT_BUILD_LITE:BOOL=OFF \
+  -DMT_BUILD_ANTS:BOOL=ON \
+  -DMT_BUILD_C3D:BOOL=ON \
+  -DMT_BUILD_ELASTIX:BOOL=ON "
+fi
+
+if [[ -z ${MACOSX_DEPLOYMENT_TARGET} ]];then
+    CMAKE_FLAGS="${CMAKE_FLAGS} -DMT_USE_OPENMP:BOOL=ON"
+else
+    # OpenMP is not available on MacOSX
+    CMAKE_FLAGS="${CMAKE_FLAGS} -DMT_USE_OPENMP:BOOL=ON"
+fi
+
+
 cmake .. \
       -DCMAKE_INSTALL_PREFIX=${PREFIX} \
       -DCMAKE_BUILD_TYPE=Release \
-      -DMT_BUILD_ITK_TOOLS:BOOL=ON \
       -DMT_BUILD_SHARED_LIBS:BOOL=ON \
       -DMT_BUILD_VISUAL_TOOLS:BOOL=OFF \
       -DUSE_SYSTEM_OPENJPEG:BOOL=ON \
@@ -53,15 +78,11 @@ cmake .. \
       -DUSE_SYSTEM_EXPAT_ITK:BOOL=ON \
       -DEXPAT_INCLUDE_DIR:PATH=${CONDA_PREFIX}/include \
       -DEXPAT_LIBRARY:PATH=${CONDA_PREFIX}/lib/libexpat${SHLIB_EXT} \
-      -DMT_BUILD_ANTS:BOOL=ON \
-      -DMT_BUILD_C3D:BOOL=ON \
-      -DMT_BUILD_ELASTIX:BOOL=ON \
       -DMT_BUILD_OPENBLAS:BOOL=OFF \
       -DMT_BUILD_SHARED_LIBS:BOOL=ON \
       -DCMAKE_Fortran_FLAGS:STRING="" \
       -DCMAKE_CXX_FLAGS:STRING="" \
       -DCMAKE_C_FLAGS:STRING="" \
-      -DOpenBLAS_DIR:PATH=${CONDA_PREFIX}/lib/cmake/openblas \
       -DMT_PACKAGES_PATH:PATH=${RECIPE_DIR}/cache \
       -DBISON_EXECUTABLE:FILEPATH=${CONDA_PREFIX}/bin/bison \
       -DFFTW3F_INCLUDE_DIR:PATH=${CONDA_PREFIX}/include \
@@ -95,19 +116,18 @@ cmake .. \
       -DPCRE_LIBRARY:FILEPATH=${CONDA_PREFIX}/lib/libpcre${SHLIB_EXT} \
       -DPERL_EXECUTABLE:FILEPATH=${CONDA_PREFIX}/bin/perl \
       -DZLIB_INCLUDE_DIR:PATH=${CONDA_PREFIX}/include \
-      -DZLIB_LIBRARY_RELEASE:FILEPATH=${CONDA_PREFIX}/lib/libz${SHLIB_EXT}
+      -DZLIB_LIBRARY_RELEASE:FILEPATH=${CONDA_PREFIX}/lib/libz${SHLIB_EXT} \
+      ${CMAKE_FLAGS}
 
-if [[ -z ${MACOSX_DEPLOYMENT_TARGET} ]];then
-    cmake ..  -DMT_USE_OPENMP:BOOL=ON
-else
-    # OpenMP is not available on MacOSX
-    cmake ..  -DMT_USE_OPENMP:BOOL=OFF
-fi
+
+
+# build and install
+make -j${CPU_COUNT} 
 
 # fix a missing directory bug (?)
 mkdir -p ${PREFIX}/share
-# build and install
-make -j${CPU_COUNT} && make install #
+
+make install 
 
 #create environment activation & deactivation
 ACTIVATE_DIR=$PREFIX/etc/conda/activate.d
@@ -117,3 +137,4 @@ mkdir -p $DEACTIVATE_DIR
 
 cp $RECIPE_DIR/scripts/activate.sh $ACTIVATE_DIR/minc-toolkit-v2-activate.sh
 cp $RECIPE_DIR/scripts/deactivate.sh $DEACTIVATE_DIR/minc-toolkit-v2-deactivate.sh
+

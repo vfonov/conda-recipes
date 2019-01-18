@@ -1,0 +1,5 @@
+minctoolkit_variant:
+  - openblas
+  - mkl
+  - lite
+
