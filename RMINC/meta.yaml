@@ -1,5 +1,5 @@
 {% set name = "RMINC" %}
-{% set version = "1.5.2.1" %}
+{% set version = "1.5.2.2" %}
 
 # probably will not wotk on windows anyway 
 {% set posix = 'm2-' if win else '' %}
@@ -10,8 +10,8 @@ package:
   version: "{{ version }}"
 
 source:
-  url: https://github.com/Mouse-Imaging-Centre/RMINC/archive/v1.5.2.1.tar.gz
-  sha256: 3a6e318bcca16ec9cf9a4057512fccc83cc12c0d945baa88e8e16c66ba4563c6
+  url: https://github.com/vfonov/RMINC/archive/develop-tidy.tar.gz
+  sha256: 2d6f23532953bf9a24d42e6c7028efda11e08244f42581aed64243007806be09
 
 build:
   number: 0
@@ -27,6 +27,7 @@ requirements:
     - r-dplyr
     - r-batchtools
     - r-tidyr
+    - r-readr
     - r-lme4
     - r-purrr
     - r-shiny
@@ -59,6 +60,7 @@ requirements:
     - r-dplyr
     - r-batchtools
     - r-tidyr
+    - r-readr
     - r-lme4
     - r-purrr
     - r-shiny
