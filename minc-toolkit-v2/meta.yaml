@@ -3,9 +3,9 @@ package:
   version: "1.9.17"
 
 source:
-  #url: https://github.com/BIC-MNI/minc-toolkit-v2/releases/download/release-1.9.17-test/minc-toolkit-v2-1.9.17.tar.xz
-  #sha256: 0b4e8b5a134c44d2054cba71fd0e005136ee9b018cf4984acb467d5c0708fd7d
-  path: /home/vfonov/src/minc-toolkit-v2
+  url: https://github.com/BIC-MNI/minc-toolkit-v2/releases/download/release-1.9.17-test/minc-toolkit-v2-1.9.17.tar.xz
+  sha256: 0b4e8b5a134c44d2054cba71fd0e005136ee9b018cf4984acb467d5c0708fd7d
+  #path: /home/vfonov/src/minc-toolkit-v2
 
 requirements:
   build:
