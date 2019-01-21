@@ -128,13 +128,26 @@ mkdir -p ${PREFIX}/share
 
 make install 
 
+
 # a HACK to fix cmake dependencies tracking
 # TODO: find a better solution
 if [ ! -z $building_itk ];then
-	for i in ${PREFIX}/lib/cmake/ITK-*/*cmake ${PREFIX}/lib/cmake/ITK-*/Modules/*cmake;do
-		sed -i.save "s#${CONDA_PREFIX}/lib/##g" $i
+  #fix shared libraries path
+  for i in ${PREFIX}/lib/cmake/ITK-*/*cmake ${PREFIX}/lib/cmake/ITK-*/Modules/*cmake;do
+    sed -i.save "s#${CONDA_PREFIX}/lib/##g" $i
   done
 fi
+
+for i in ${PREFIX}/lib/cmake/ITK-4.13/ITKTargets.cmake \
+         ${PREFIX}/lib/cmake/ITK-4.13/Modules/ITKMINC.cmake ;do
+# a hack to fix external libraries path
+sed -i.save "s#${CONDA_PREFIX}/external/${PREFIX}/#"'$ENV{CONDA_PREFIX}/#g' $i
+done
+
+# fix all other paths
+for i in $( find ${PREFIX} -name '*.cmake');do
+  sed -i.save "s#${CONDA_PREFIX}/#${PREFIX}/#g" $i
+done
 
 
 #create environment activation & deactivation
@@ -145,4 +158,3 @@ mkdir -p $DEACTIVATE_DIR
 
 cp $RECIPE_DIR/scripts/activate.sh $ACTIVATE_DIR/minc-toolkit-v2-activate.sh
 cp $RECIPE_DIR/scripts/deactivate.sh $DEACTIVATE_DIR/minc-toolkit-v2-deactivate.sh
-

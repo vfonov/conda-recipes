@@ -3,10 +3,10 @@ package:
   version: "1.9.17"
 
 source:
-#  url: https://github.com/BIC-MNI/minc-toolkit-v2/releases/download/release-1.9.17-test/minc-toolkit-v2-1.9.17.tar.xz
-#  sha256: 93bbabc58141b5cfd16609092bb37b2a740760b685247b7d360e0fa54806ad39
-   path: /home/vfonov/src/minc-toolkit-v2
-	
+  #url: https://github.com/BIC-MNI/minc-toolkit-v2/releases/download/release-1.9.17-test/minc-toolkit-v2-1.9.17.tar.xz
+  #sha256: 0b4e8b5a134c44d2054cba71fd0e005136ee9b018cf4984acb467d5c0708fd7d
+  path: /home/vfonov/src/minc-toolkit-v2
+
 requirements:
   build:
     - cmake
@@ -51,7 +51,7 @@ test:
     - antsRegistration --version #[minctoolkit_variant != 'lite'] 
 
 build:
-  number: 7
+  number: 8
   string: {{ minctoolkit_variant }}_h{{PKG_HASH}}_{{ PKG_BUILDNUM }}
 
 about:
