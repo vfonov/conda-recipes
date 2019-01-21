@@ -1,0 +1,40 @@
+package:
+  name: libxkbfile-cos6-x86_64
+  version: 1.0.6
+
+source:
+  - url: http://mirror.centos.org/centos/6.10/os/x86_64/Packages/libxkbfile-1.0.6-1.1.el6.x86_64.rpm
+    sha256: 0c8c125d6b4c0db5368f439c045073cb2cc55e6207bdff4d143d5bb48ae873fb
+    folder: binary
+    fn: libxkbfile-1.0.6-1.1.el6.x86_64.rpm.dummy
+  - url: http://mirror.centos.org/centos/6.10/os/x86_64/Packages/libxkbfile-devel-1.0.6-1.1.el6.x86_64.rpm
+    sha256: 70edcd8315d8fa646e889ae46b1261a9efb055e623ab50134991820ee50ab630
+    folder: binary
+    fn: libxkbfile-devel-1.0.6-1.1.el6.x86_64.rpm.dummy
+  - url: http://vault.centos.org/6.10/os/Source/SPackages/libxkbfile-1.0.6-1.1.el6.src.rpm
+    sha256: 555d3e4920aa3ff5eab1a82b360d601719628d79875288f76b519b72241b543a
+    folder: source
+
+build:
+  missing_dso_whitelist:
+    - '*'
+
+requirements:
+  build:
+    - libx11-cos6-x86_64 >=1.6.0
+
+
+outputs:
+  - name: libxkbfile-cos6-x86_64
+    noarch: generic
+    requirements:
+      run:
+        - libx11-cos6-x86_64 >=1.6.0
+
+    about:
+      home: http://www.x.org
+      license: MIT
+      license_family: MIT
+      summary: "(CDT) X.Org X11 libxkbfile runtime library"
+      description: |
+        X.Org X11 libxkbfile runtime library
