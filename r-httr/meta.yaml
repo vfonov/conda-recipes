@@ -1,0 +1,92 @@
+{% set version = '1.4.0' %}
+
+{% set posix = 'm2-' if win else '' %}
+{% set native = 'm2w64-' if win else '' %}
+
+package:
+  name: r-httr
+  version: {{ version|replace("-", "_") }}
+
+source:
+  url:
+    - {{ cran_mirror }}/src/contrib/httr_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/Archive/httr/httr_{{ version }}.tar.gz
+  sha256: d633f1425da514f65f3b8c034ae0a8b6911995009840c6bb9657ceedb99ddb48
+
+build:
+  merge_build_host: True  # [win]
+  # If this is a new build for the same version, increment the build number.
+  number: 0
+
+  # This is required to make R link correctly on Linux.
+  rpaths:
+    - lib/R/lib/
+    - lib/
+
+# Suggests: covr, httpuv, jpeg, knitr, png, readr, rmarkdown, testthat (>= 0.8.0), xml2
+requirements:
+  build:
+    - {{posix}}zip               # [win]
+
+  host:
+    - r-base
+    - r-r6
+    - r-curl >=0.9.1
+    - r-jsonlite
+    - r-mime
+    - r-openssl >=0.8
+
+  run:
+    - r-base
+    - r-r6
+    - r-curl >=0.9.1
+    - r-jsonlite
+    - r-mime
+    - r-openssl >=0.8
+
+test:
+  commands:
+    # You can put additional test commands to be run here.
+    - $R -e "library('httr')"           # [not win]
+    - "\"%R%\" -e \"library('httr')\""  # [win]
+
+  # You can also put a file called run_test.py, run_test.sh, or run_test.bat
+  # in the recipe that will be run at test time.
+
+  # requires:
+    # Put any additional test requirements here.
+
+about:
+  home: https://github.com/r-lib/httr
+  license: MIT + file LICENSE
+  summary: Useful tools for working with HTTP organised by HTTP verbs (GET(), POST(), etc). Configuration
+    functions make it easy to control additional request components (authenticate(),
+    add_headers() and so on).
+  license_family: MIT
+
+# The original CRAN metadata for this package was:
+
+# Package: httr
+# Title: Tools for Working with URLs and HTTP
+# Version: 1.4.0
+# Authors@R:  c(person(given = "Hadley", family = "Wickham", role = c("aut", "cre"), email = "hadley@rstudio.com"), person(given = "RStudio", role = "cph"))
+# Description: Useful tools for working with HTTP organised by HTTP verbs (GET(), POST(), etc). Configuration functions make it easy to control additional request components (authenticate(), add_headers() and so on).
+# License: MIT + file LICENSE
+# URL: https://github.com/r-lib/httr
+# BugReports: https://github.com/r-lib/httr/issues
+# Depends: R (>= 3.1)
+# Imports: curl (>= 0.9.1), jsonlite, mime, openssl (>= 0.8), R6
+# Suggests: covr, httpuv, jpeg, knitr, png, readr, rmarkdown, testthat (>= 0.8.0), xml2
+# VignetteBuilder: knitr
+# Encoding: UTF-8
+# RoxygenNote: 6.1.1
+# NeedsCompilation: no
+# Packaged: 2018-12-06 20:11:59 UTC; hadley
+# Author: Hadley Wickham [aut, cre], RStudio [cph]
+# Maintainer: Hadley Wickham <hadley@rstudio.com>
+# Repository: CRAN
+# Date/Publication: 2018-12-11 08:40:06 UTC
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml

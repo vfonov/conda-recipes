@@ -4,16 +4,10 @@ if [[ $target_platform =~ linux.* ]] || [[ $target_platform == win-32 ]] || [[ $
   export DISABLE_AUTOBREW=1
   mv DESCRIPTION DESCRIPTION.old
   grep -v '^Priority: ' DESCRIPTION.old > DESCRIPTION
-
-  if [[ $target_platform == osx-64 ]]; then
-   export LDFLAGS="-L$CONDA_PREFIX/lib -Wl,-rpath,$CONDA_PREFIX/lib -Wl,-headerpad_max_install_names $LDFLAGS"
-   export LIBRARY_SEARCH_VAR=DYLD_FALLBACK_LIBRARY_PATH
-  fi
-
   $R CMD INSTALL --build .
 else
-  mkdir -p $PREFIX/lib/R/library/sf
-  mv * $PREFIX/lib/R/library/sf
+  mkdir -p $PREFIX/lib/R/library/tidyverse
+  mv * $PREFIX/lib/R/library/tidyverse
 
   if [[ $target_platform == osx-64 ]]; then
     pushd $PREFIX
