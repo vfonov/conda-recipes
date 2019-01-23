@@ -1,0 +1,97 @@
+{% set version = '1.1-6' %}
+
+{% set posix = 'm2-' if win else '' %}
+{% set native = 'm2w64-' if win else '' %}
+
+package:
+  name: r-gstat
+  version: {{ version|replace("-", "_") }}
+
+source:
+  url:
+    - {{ cran_mirror }}/src/contrib/gstat_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/Archive/gstat/gstat_{{ version }}.tar.gz
+  sha256: 4618a941a62421f31104421c9ca5a1ea4ec17c283027908244edb5e8d2e47ba5
+
+build:
+  merge_build_host: True  # [win]
+  # If this is a new build for the same version, increment the build number.
+  number: 0
+
+  # This is required to make R link correctly on Linux.
+  rpaths:
+    - lib/R/lib/
+    - lib/
+
+# Suggests: rgdal (>= 0.5.2), rgeos, fields, maps, mapdata, maptools, xts
+requirements:
+  build:
+    - {{ compiler('c') }}        # [not win]
+    - {{native}}toolchain        # [win]
+    - {{posix}}filesystem        # [win]
+    - {{posix}}make
+    - {{posix}}sed               # [win]
+    - {{posix}}coreutils         # [win]
+    - {{posix}}zip               # [win]
+
+  host:
+    - r-base
+    - r-fnn
+    - r-lattice
+    - r-sp >=0.9_72
+    - r-spacetime >=1.0_0
+    - r-zoo
+
+  run:
+    - r-base
+    - {{native}}gcc-libs         # [win]
+    - r-fnn
+    - r-lattice
+    - r-sp >=0.9_72
+    - r-spacetime >=1.0_0
+    - r-zoo
+
+test:
+  commands:
+    # You can put additional test commands to be run here.
+    - $R -e "library('gstat')"           # [not win]
+    - "\"%R%\" -e \"library('gstat')\""  # [win]
+
+  # You can also put a file called run_test.py, run_test.sh, or run_test.bat
+  # in the recipe that will be run at test time.
+
+  # requires:
+    # Put any additional test requirements here.
+
+about:
+  home: https://github.com/edzer/gstat/
+  license: GPL (>= 2.0)
+  summary: Variogram modelling; simple, ordinary and universal point or block (co)kriging; spatio-temporal
+    kriging; sequential Gaussian or indicator (co)simulation; variogram and variogram
+    map plotting utility functions.
+  license_family: GPL3
+
+# The original CRAN metadata for this package was:
+
+# Package: gstat
+# Version: 1.1-6
+# Title: Spatial and Spatio-Temporal Geostatistical Modelling, Prediction and Simulation
+# Authors@R: c(person("Edzer", "Pebesma", role = c("aut", "cre"), email = "edzer.pebesma@uni-muenster.de"), person("Benedikt", "Graeler", role = "aut"))
+# Description: Variogram modelling; simple, ordinary and universal point or block (co)kriging; spatio-temporal kriging; sequential Gaussian or indicator (co)simulation; variogram and variogram map plotting utility functions.
+# Depends: R (>= 2.10)
+# Imports: utils, stats, graphics, methods, lattice, sp (>= 0.9-72), zoo, spacetime (>= 1.0-0), FNN
+# Suggests: rgdal (>= 0.5.2), rgeos, fields, maps, mapdata, maptools, xts
+# License: GPL (>= 2.0)
+# URL: https://github.com/edzer/gstat/
+# Encoding: UTF-8
+# BugReports: https://github.com/edzer/gstat/issues/
+# NeedsCompilation: yes
+# Packaged: 2018-09-09 07:54:30 UTC; ripley
+# Author: Edzer Pebesma [aut, cre], Benedikt Graeler [aut]
+# Maintainer: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+# Repository: CRAN
+# Date/Publication: 2018-09-09 10:04:41
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml
