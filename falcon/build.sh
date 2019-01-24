@@ -8,7 +8,6 @@ mkdir -p build && cd build
 # use external cache directory
 export CMAKE_PREFIX_PATH=${CONDA_PREFIX}
 # default configuration , trying to use as many prebuilt packages as possible
-export CXXFLAGS="-stdlib=libc++ $CXXFLAGS"
 
 if [[ -z ${MACOSX_DEPLOYMENT_TARGET} ]];then
     # building on linux
@@ -16,6 +15,7 @@ if [[ -z ${MACOSX_DEPLOYMENT_TARGET} ]];then
     ln -sf ${CONDA_PREFIX}/x86_64-conda_cos6-linux-gnu/sysroot/lib/libm.so.6 ${CONDA_PREFIX}/lib/libm.so
     export CMAKE_LIBRARY_PATH=${CONDA_PREFIX}/lib:${CONDA_PREFIX}/lib64:${CONDA_PREFIX}/x86_64-conda_cos6-linux-gnu/sysroot/lib
 else # building on MacOSX
+    export CXXFLAGS="-stdlib=libc++ $CXXFLAGS"
     export CC=clang
     export CXX=clang++
     export LDFLAGS="-L$CONDA_PREFIX/lib -Wl,-rpath,$CONDA_PREFIX/lib -headerpad_max_install_names $LDFLAGS"

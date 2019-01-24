@@ -1,6 +1,6 @@
 package:
   name: falcon
-  version: "0.1.1"
+  version: "0.1.2"
 
 source:
   path: ../../falcon/
@@ -18,17 +18,15 @@ requirements:
     - povray
     - libtiff
     - imagemagick
-
 test:
   commands:
     - falcon_cortex_initocs --version
     - falcon_cortex_initics --version
     - falcon_cortex_refine -help
-    
 
 
 build:
-  number: 1
+  number: 0
 
 about:
   home: https://github.com/vfonov/falcon
