@@ -23,6 +23,9 @@ build:
 
 requirements:
   host:
+    - {{ compiler('c') }}        [linux]
+    - {{ compiler('cxx') }}      [linux]
+    - {{ compiler('fortran') }}  [linux]
     - r-base {{ r_base }}
     - r-dplyr
     - r-batchtools
