@@ -1,7 +1,7 @@
 #! /bin/bash
 
 set -e -x
-
+rm -rf build # remove stale build
 mkdir -p build && cd build
 # assume correct compilers will be setup by environment
 # don't build visual tools though
