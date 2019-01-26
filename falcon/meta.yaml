@@ -26,7 +26,7 @@ test:
 
 
 build:
-  number: 0
+  number: 3
 
 about:
   home: https://github.com/vfonov/falcon
