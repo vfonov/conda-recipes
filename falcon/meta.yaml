@@ -7,17 +7,19 @@ source:
 
 requirements:
   build:
+    - minc-toolkit-v2 {{ minc_toolkit_v2 }}
+    - libtiff
     - cmake
     - make
     - {{ compiler('c') }}
     - {{ compiler('cxx') }} 
-    - minc-toolkit-v2
+
+  run: 
     - libtiff
-  run:
-    - minc-toolkit-v2
     - povray
-    - libtiff
     - imagemagick
+    - minc-toolkit-v2 {{ minc_toolkit_v2 }}
+
 test:
   commands:
     - falcon_cortex_initocs --version
@@ -26,7 +28,7 @@ test:
 
 
 build:
-  number: 3
+  number: 4
 
 about:
   home: https://github.com/vfonov/falcon
