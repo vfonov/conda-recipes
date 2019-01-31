@@ -51,7 +51,7 @@ test:
     - antsRegistration --version #[minctoolkit_variant != 'lite'] 
 
 build:
-  number: 8
+  number: 13
   string: {{ minctoolkit_variant }}_h{{PKG_HASH}}_{{ PKG_BUILDNUM }}
 
 about:

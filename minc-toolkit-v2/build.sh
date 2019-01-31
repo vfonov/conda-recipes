@@ -1,6 +1,6 @@
 #! /bin/bash
 
-set -e -x
+set -e 
 
 mkdir -p build && cd build
 # assume correct compilers will be setup by environment
@@ -19,7 +19,8 @@ if [[ -z ${MACOSX_DEPLOYMENT_TARGET} ]];then
     # building on linux
 
     # HACK to make cmake be able to find libm
-    ln -sf ${CONDA_PREFIX}/x86_64-conda_cos6-linux-gnu/sysroot/lib/libm.so.6 ${CONDA_PREFIX}/lib/libm.so
+    # ln -sf ${CONDA_PREFIX}/x86_64-conda_cos6-linux-gnu/sysroot/lib/libm.so.6 ${CONDA_PREFIX}/lib/libm.so
+    # maybe not such a good adea after all
 
     export CMAKE_LIBRARY_PATH=${CONDA_PREFIX}/lib:${CONDA_PREFIX}/lib64:${CONDA_PREFIX}/x86_64-conda_cos6-linux-gnu/sysroot/lib
 
@@ -121,33 +122,50 @@ cmake .. \
       ${CMAKE_FLAGS}
 
 # build and install
-make -j${CPU_COUNT} 
+make -j${CPU_COUNT}
 
 # fix a missing directory bug (?)
 mkdir -p ${PREFIX}/share
 
-make install 
+make install
 
 
 # a HACK to fix cmake dependencies tracking
 # TODO: find a better solution
-if [ ! -z $building_itk ];then
-  #fix shared libraries path
-  for i in ${PREFIX}/lib/cmake/ITK-*/*cmake ${PREFIX}/lib/cmake/ITK-*/Modules/*cmake;do
-    sed -i.save "s#${CONDA_PREFIX}/lib/##g" $i
-  done
-fi
 
-for i in ${PREFIX}/lib/cmake/ITK-4.13/ITKTargets.cmake \
-         ${PREFIX}/lib/cmake/ITK-4.13/Modules/ITKMINC.cmake ;do
-# a hack to fix external libraries path
-sed -i.save "s#${CONDA_PREFIX}/external/${PREFIX}/#"'$ENV{CONDA_PREFIX}/#g' $i
-done
+  # a hack to fixe broken links inside external directories
+  # like /opt/conda/conda-bld/minc-toolkit-v2_1548109864776/work/build/external//opt/conda/conda-bld/minc-toolkit-v2_1548109864776/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placeho/lib/libniftiio.a
+  # also fix wrong links pointing to the build environment
 
-# fix all other paths
+set -x
+
+
+echo
+echo  =========debug ==========
+echo
+cat ${PREFIX}/lib/cmake/ITK-4.13/ITKTargets.cmake |grep libniftiio.a
+echo
+echo
+
 for i in $( find ${PREFIX} -name '*.cmake');do
-  sed -i.save "s#${CONDA_PREFIX}/#${PREFIX}/#g" $i
+    # a hack to fix external libraries path
+
+    # substitute
+    bad=$(pwd)/external/
+
+    sed -i -e "s/${bad//\//\\\/}//g" \
+           -e "s/${CONDA_PREFIX//\//\\\/}/${PREFIX//\//\\\/}/g" \
+           -e 's/\$SRC_DIR\/build\/external\///g' $i
 done
+
+echo
+echo  =========debug ==========
+echo
+cat ${PREFIX}/lib/cmake/ITK-4.13/ITKTargets.cmake |grep libniftiio.a
+echo
+echo
+
+#exit 1
 
 
 #create environment activation & deactivation
@@ -158,3 +176,4 @@ mkdir -p $DEACTIVATE_DIR
 
 cp $RECIPE_DIR/scripts/activate.sh $ACTIVATE_DIR/minc-toolkit-v2-activate.sh
 cp $RECIPE_DIR/scripts/deactivate.sh $DEACTIVATE_DIR/minc-toolkit-v2-deactivate.sh
+
