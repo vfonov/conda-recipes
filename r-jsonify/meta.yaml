@@ -1,0 +1,97 @@
+{% set version = '0.2.0' %}
+
+{% set posix = 'm2-' if win else '' %}
+{% set native = 'm2w64-' if win else '' %}
+
+package:
+  name: r-jsonify
+  version: {{ version|replace("-", "_") }}
+
+source:
+  url:
+    - {{ cran_mirror }}/src/contrib/jsonify_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/Archive/jsonify/jsonify_{{ version }}.tar.gz
+  sha256: 2c263b13198e70e5ce1e72a6dd9aebcef8ec64b1035076fc8307b06f2ff9e04b
+
+build:
+  merge_build_host: True  # [win]
+  # If this is a new build for the same version, increment the build number.
+  number: 0
+
+  # This is required to make R link correctly on Linux.
+  rpaths:
+    - lib/R/lib/
+    - lib/
+
+# Suggests: covr, microbenchmark, jsonlite, testthat, knitr, rmarkdown
+requirements:
+  build:
+    - {{ compiler('c') }}        # [not win]
+    - {{ compiler('cxx') }}      # [not win]
+    - {{native}}toolchain        # [win]
+    - {{posix}}filesystem        # [win]
+    - {{posix}}make
+    - {{posix}}sed               # [win]
+    - {{posix}}coreutils         # [win]
+    - {{posix}}zip               # [win]
+
+  host:
+    - r-base
+    - r-bh
+    - r-rcpp >=0.12.18
+    - r-rapidjsonr
+
+  run:
+    - r-base
+    - {{native}}gcc-libs         # [win]
+    - r-bh
+    - r-rcpp >=0.12.18
+    - r-rapidjsonr
+
+test:
+  commands:
+    # You can put additional test commands to be run here.
+    - $R -e "library('jsonify')"           # [not win]
+    - "\"%R%\" -e \"library('jsonify')\""  # [win]
+
+  # You can also put a file called run_test.py, run_test.sh, or run_test.bat
+  # in the recipe that will be run at test time.
+
+  # requires:
+    # Put any additional test requirements here.
+
+about:
+  home: https://CRAN.R-project.org/package=jsonify
+  license: GPL (>= 2)
+  summary: 'Converts ''R'' objects into Javascript Object Notation (JSON) using  the ''rapidjsonr''
+    library <https://CRAN.R-project.org/package=rapidjsonr>. '
+
+  license_family: GPL3
+  license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2'
+
+# The original CRAN metadata for this package was:
+
+# Package: jsonify
+# Type: Package
+# Title: Converts 'R' Objects to Javascript Object Notation (JSON)
+# Version: 0.2.0
+# Date: 2019-01-10
+# Authors@R: c( person("David", "Cooley", ,"dcooley@symbolix.com.au", role = c("aut", "cre")) )
+# Description: Converts 'R' objects into Javascript Object Notation (JSON) using  the 'rapidjsonr' library <https://CRAN.R-project.org/package=rapidjsonr>.
+# License: GPL (>= 2)
+# Imports: Rcpp (>= 0.12.18)
+# LinkingTo: BH, rapidjsonr, Rcpp
+# RoxygenNote: 6.1.0
+# Suggests: covr, microbenchmark, jsonlite, testthat, knitr, rmarkdown
+# Encoding: UTF-8
+# VignetteBuilder: knitr
+# NeedsCompilation: yes
+# Packaged: 2019-01-10 02:34:15 UTC; david
+# Author: David Cooley [aut, cre]
+# Maintainer: David Cooley <dcooley@symbolix.com.au>
+# Repository: CRAN
+# Date/Publication: 2019-01-10 13:10:03 UTC
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml
