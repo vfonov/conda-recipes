@@ -1,0 +1,92 @@
+{% set version = '1.6' %}
+
+{% set posix = 'm2-' if win else '' %}
+{% set native = 'm2w64-' if win else '' %}
+
+package:
+  name: r-jsonlite
+  version: {{ version|replace("-", "_") }}
+
+source:
+  url:
+    - {{ cran_mirror }}/src/contrib/jsonlite_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/Archive/jsonlite/jsonlite_{{ version }}.tar.gz
+  sha256: 88c5b425229966b7409145a6cabc72db9ed04f8c37ee95901af0146bb285db53
+
+build:
+  merge_build_host: True  # [win]
+  # If this is a new build for the same version, increment the build number.
+  number: 0
+
+  # This is required to make R link correctly on Linux.
+  rpaths:
+    - lib/R/lib/
+    - lib/
+
+# Suggests: httr, curl, plyr, testthat, knitr, rmarkdown, R.rsp, sp
+requirements:
+  build:
+    - {{ compiler('c') }}        # [not win]
+    - {{native}}toolchain        # [win]
+    - {{posix}}filesystem        # [win]
+    - {{posix}}make
+    - {{posix}}sed               # [win]
+    - {{posix}}coreutils         # [win]
+    - {{posix}}zip               # [win]
+
+  host:
+    - r-base
+
+  run:
+    - r-base
+    - {{native}}gcc-libs         # [win]
+
+test:
+  commands:
+    # You can put additional test commands to be run here.
+    - $R -e "library('jsonlite')"           # [not win]
+    - "\"%R%\" -e \"library('jsonlite')\""  # [win]
+
+  # You can also put a file called run_test.py, run_test.sh, or run_test.bat
+  # in the recipe that will be run at test time.
+
+  # requires:
+    # Put any additional test requirements here.
+
+about:
+  home: https://arxiv.org/abs/1403.2805, https://www.opencpu.org/posts/jsonlite-a-smarter-json-encoder
+  license: MIT + file LICENSE
+  summary: A fast JSON parser and generator optimized for statistical data and the web. Started
+    out as a fork of 'RJSONIO', but has been completely rewritten in recent versions.
+    The package offers flexible, robust, high performance tools for working with JSON
+    in R and is particularly powerful for building pipelines and interacting with a
+    web API. The implementation is based on the mapping described in the vignette (Ooms,
+    2014). In addition to converting JSON data from/to R objects, 'jsonlite' contains
+    functions to stream, validate, and prettify JSON data. The unit tests included with
+    the package verify that all edge cases are encoded and decoded consistently for
+    use with dynamic data in systems and applications.
+  license_family: MIT
+
+# The original CRAN metadata for this package was:
+
+# Package: jsonlite
+# Version: 1.6
+# Title: A Robust, High Performance JSON Parser and Generator for R
+# License: MIT + file LICENSE
+# NeedsCompilation: yes
+# Depends: methods
+# Author: Jeroen Ooms, Duncan Temple Lang, Lloyd Hilaiel
+# URL: https://arxiv.org/abs/1403.2805, https://www.opencpu.org/posts/jsonlite-a-smarter-json-encoder
+# BugReports: http://github.com/jeroen/jsonlite/issues
+# Maintainer: Jeroen Ooms <jeroen@berkeley.edu>
+# VignetteBuilder: knitr, R.rsp
+# Description: A fast JSON parser and generator optimized for statistical data and the web. Started out as a fork of 'RJSONIO', but has been completely rewritten in recent versions. The package offers flexible, robust, high performance tools for working with JSON in R and is particularly powerful for building pipelines and interacting with a web API. The implementation is based on the mapping described in the vignette (Ooms, 2014). In addition to converting JSON data from/to R objects, 'jsonlite' contains functions to stream, validate, and prettify JSON data. The unit tests included with the package verify that all edge cases are encoded and decoded consistently for use with dynamic data in systems and applications.
+# Suggests: httr, curl, plyr, testthat, knitr, rmarkdown, R.rsp, sp
+# RoxygenNote: 6.1.1
+# Packaged: 2018-12-07 11:22:02 UTC; jeroen
+# Repository: CRAN
+# Date/Publication: 2018-12-07 12:50:02 UTC
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml
