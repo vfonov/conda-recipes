@@ -3,8 +3,10 @@ package:
   version: "0.0.1"
 
 source:
-  git_url: https://github.com/vfonov/cortex_walk.git
-  git_rev: f9fafcc084cc2e9f6ca00efdbd4de8d198d3c98e
+  #git_url: https://github.com/vfonov/cortex_walk.git
+  #git_rev: f9fafcc084cc2e9f6ca00efdbd4de8d198d3c98e
+  path: ../../cortex_walk/
+
 
 requirements:
   build:
@@ -12,13 +14,13 @@ requirements:
     - make
     - {{ compiler('c') }}
     - {{ compiler('cxx') }} 
-    - minc-toolkit-v2
+    - minc-toolkit-v2 {{ minc_toolkit_v2 }}
   run:
-    - minc-toolkit-v2
+    - minc-toolkit-v2 {{ minc_toolkit_v2 }}
 
 test:
   commands:
-    - cortex_walk
+    - cortex_walk --help
 
 
 build:
