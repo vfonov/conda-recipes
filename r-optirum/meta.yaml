@@ -1,0 +1,102 @@
+{% set version = '0.40.1' %}
+
+{% set posix = 'm2-' if win else '' %}
+{% set native = 'm2w64-' if win else '' %}
+
+package:
+  name: r-optirum
+  version: {{ version|replace("-", "_") }}
+
+source:
+  url:
+    - {{ cran_mirror }}/src/contrib/optiRum_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/Archive/optiRum/optiRum_{{ version }}.tar.gz
+  sha256: dd3c6455c3fb709d1a0e8d69edeb46f344e9ae94ba256457cf90df51e0af89ce
+
+build:
+  merge_build_host: True  # [win]
+  # If this is a new build for the same version, increment the build number.
+  number: 0
+
+  # This is required to make R link correctly on Linux.
+  rpaths:
+    - lib/R/lib/
+    - lib/
+
+# Suggests: testthat, covr, rmarkdown
+requirements:
+  build:
+    - {{posix}}zip               # [win]
+
+  host:
+    - r-base
+    - r-auc
+    - r-xml
+    - r-data.table >=1.9.6
+    - r-ggplot2
+    - r-knitr
+    - r-plyr
+    - r-scales
+    - r-stringr
+
+  run:
+    - r-base
+    - r-auc
+    - r-xml
+    - r-data.table >=1.9.6
+    - r-ggplot2
+    - r-knitr
+    - r-plyr
+    - r-scales
+    - r-stringr
+
+test:
+  commands:
+    # You can put additional test commands to be run here.
+    - $R -e "library('optiRum')"           # [not win]
+    - "\"%R%\" -e \"library('optiRum')\""  # [win]
+
+  # You can also put a file called run_test.py, run_test.sh, or run_test.bat
+  # in the recipe that will be run at test time.
+
+  # requires:
+    # Put any additional test requirements here.
+
+about:
+  home: https://github.com/lockedata/optiRum, https://itsalocke.com/optirum/
+  license: GPL-3
+  summary: This fills the gaps credit analysts and loan modellers at Optimum Credit identify
+    in the existing R code body. It allows for the production of documentation with
+    less coding, replicates a number of Microsoft Excel functions useful for modelling
+    loans (without rounding), and other helpful functions for producing charts and tables.  It
+    also has some additional scales for use, including a GBP scale.
+  license_family: GPL3
+  license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3'
+
+# The original CRAN metadata for this package was:
+
+# Package: optiRum
+# Title: Financial Functions & More
+# Description: This fills the gaps credit analysts and loan modellers at Optimum Credit identify in the existing R code body. It allows for the production of documentation with less coding, replicates a number of Microsoft Excel functions useful for modelling loans (without rounding), and other helpful functions for producing charts and tables.  It also has some additional scales for use, including a GBP scale.
+# Version: 0.40.1
+# Encoding: UTF-8
+# Authors@R: c( person("Steph", "Locke", email = "stephanie.g.locke@gmail.com", role = c("aut", "cre")), person("Locke Data", comment = "https://itsalocke.com/", role = c("fnd")), person("Optimum Credit Ltd's analysts",  comment = "https://www.optimumcredit.co.uk/", role = c("fnd")), person("Maelle", "Salmon", role = "ctb"))
+# Depends: R (>= 3.0.2)
+# Imports: data.table (>= 1.9.6), ggplot2, AUC, grid, knitr, plyr, scales, stringr, XML
+# Suggests: testthat, covr, rmarkdown
+# License: GPL-3
+# LazyData: true
+# URL: https://github.com/lockedata/optiRum, https://itsalocke.com/optirum/
+# BugReports: https://github.com/lockedata/optiRum/issues
+# VignetteBuilder: knitr
+# RoxygenNote: 6.0.1.9000
+# NeedsCompilation: no
+# Packaged: 2018-07-03 17:50:06 UTC; Maelle
+# Author: Steph Locke [aut, cre], Locke Data [fnd] (https://itsalocke.com/), Optimum Credit Ltd's analysts [fnd] (https://www.optimumcredit.co.uk/), Maelle Salmon [ctb]
+# Maintainer: Steph Locke <stephanie.g.locke@gmail.com>
+# Repository: CRAN
+# Date/Publication: 2018-07-03 19:30:06 UTC
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml
