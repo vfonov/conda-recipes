@@ -26,9 +26,8 @@ test:
     - falcon_cortex_initics --version
     - falcon_cortex_refine -help
 
-
 build:
-  number: 4
+  number: 6
 
 about:
   home: https://github.com/vfonov/falcon
