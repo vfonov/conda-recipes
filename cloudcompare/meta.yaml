@@ -1,0 +1,47 @@
+package:
+  name: cloudcompare
+  version: "2.10.2"
+
+source:
+  url: https://github.com/CloudCompare/CloudCompare/archive/v2.10.2.tar.gz
+  sha256: 32d8660f17824547eec48263be08226ce707034175a55b54290dee48e4926e30
+
+requirements:
+  build:
+    - cmake
+    - make
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }} 
+    - {{ cdt('mesa-libgl-devel') }}      # [linux]
+    - {{ cdt('mesa-libegl-devel') }}     # [linux]
+    - {{ cdt('mesa-dri-drivers') }}      # [linux]
+    - {{ cdt('libxau-devel') }}          # [linux]
+    - {{ cdt('xorg-x11-proto-devel') }}  # [linux]
+    - {{ cdt('libxext-devel') }}         # [linux]
+    - {{ cdt('libxrender-devel') }}      # [linux]
+    - {{ cdt('libdrm-devel') }}          # [linux]
+    - {{ cdt('libxcomposite-devel') }}   # [linux]
+    - {{ cdt('libxcursor-devel') }}      # [linux]
+    - {{ cdt('libxi-devel') }}           # [linux]
+    - {{ cdt('libxtst-devel') }}         # [linux]
+    - {{ cdt('libx11-devel') }}          # [linux]
+    - {{ cdt('libxxf86vm') }}            # [linux]
+    - {{ cdt('libxfixes') }}             # [linux]
+    - {{ cdt('libxfixes-devel') }}       # [linux]
+    - {{ cdt('libselinux-devel') }}      # [linux]
+    - {{ cdt('libxdamage') }}            # [linux]
+    - {{ cdt('libxdamage-devel') }}      # [linux]
+    - qt=5.6.3 
+
+  run: 
+    - qt=5.6.3
+
+build:
+  number: 1
+
+about:
+  home: http://www.cloudcompare.org/
+  license: GPL2
+  summary: 'CloudCompare'
+  description: |
+    CloudCompare is a 3D point cloud (and triangular mesh) processing software
