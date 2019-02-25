@@ -1,0 +1,30 @@
+{% set version = "3.3.7" %}
+
+
+package:
+  name: eigen
+  version: {{ version }}
+
+source:
+  url: http://bitbucket.org/eigen/eigen/get/3.3.7.tar.bz2
+  sha256: 9f13cf90dedbe3e52a19f43000d71fdf72e986beb9a5436dddcd61ff9d77a3ce
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - cmake
+    - make
+    - {{ compiler('cxx') }}
+
+
+test:
+  commands:
+    - test -f ${PREFIX}/include/eigen3/signature_of_eigen3_matrix_library # [unix]
+
+about:
+  home: http://eigen.tuxfamily.org
+  license: "Mozilla Public License Version 2.0"
+  summary: "Eigen is a C++ template library for linear algebra: matrices, vectors, numerical solvers, and related algorithms."
+
