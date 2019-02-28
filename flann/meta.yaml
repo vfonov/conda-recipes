@@ -21,8 +21,14 @@ requirements:
     - python
     - {{ pin_compatible('numpy') }}
 
+
+test:
+  imports:
+    - pyflann
+
+
 build:
-  number: 0
+  number: 1
 
 about:
   home: https://www.cs.ubc.ca/research/flann/
