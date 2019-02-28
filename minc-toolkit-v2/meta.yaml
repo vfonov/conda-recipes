@@ -18,9 +18,9 @@ requirements:
     - {{ compiler('fortran') }}
     - system                     # [linux]
     - openblas =0.3.3            # [minctoolkit_variant == 'openblas'] 
-    - hdf5 <=1.8.18
+    - hdf5 >=1.10.2
     - pcre
-    - libnetcdf <=4.5.0
+    - libnetcdf
     - zlib
     - gsl
     - fftw
@@ -34,9 +34,9 @@ requirements:
   run:
     - perl
     - openblas =0.3.3        # [minctoolkit_variant == 'openblas'] 
-    - hdf5 <=1.8.18
+    - hdf5 >=1.10.2
     - pcre
-    - libnetcdf <=4.5.0
+    - libnetcdf
     - zlib
     - gsl
     - fftw
