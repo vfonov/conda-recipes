@@ -31,13 +31,13 @@ requirements:
     - {{ cdt('libselinux-devel') }}      # [linux]
     - {{ cdt('libxdamage') }}            # [linux]
     - {{ cdt('libxdamage-devel') }}      # [linux]
-    - qt=5.6.3 
+    - qt=5.9.7
 
   run: 
-    - qt=5.6.3
+    - qt=5.9.7
 
 build:
-  number: 1
+  number: 2
 
 about:
   home: http://www.cloudcompare.org/
