@@ -130,22 +130,15 @@ mkdir -p ${PREFIX}/share
 make install
 
 
+if [ -n $building_itk ];then
+
 # a HACK to fix cmake dependencies tracking
 # TODO: find a better solution
 
-  # a hack to fixe broken links inside external directories
+  # a hack to fix broken links inside external directories
   # like /opt/conda/conda-bld/minc-toolkit-v2_1548109864776/work/build/external//opt/conda/conda-bld/minc-toolkit-v2_1548109864776/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placeho/lib/libniftiio.a
   # also fix wrong links pointing to the build environment
 
-set -x
-
-
-echo
-echo  =========debug ==========
-echo
-cat ${PREFIX}/lib/cmake/ITK-4.13/ITKTargets.cmake |grep libniftiio.a
-echo
-echo
 
 for i in $( find ${PREFIX} -name '*.cmake');do
     # a hack to fix external libraries path
@@ -158,14 +151,7 @@ for i in $( find ${PREFIX} -name '*.cmake');do
            -e 's/\$SRC_DIR\/build\/external\///g' $i
 done
 
-echo
-echo  =========debug ==========
-echo
-cat ${PREFIX}/lib/cmake/ITK-4.13/ITKTargets.cmake |grep libniftiio.a
-echo
-echo
-
-#exit 1
+fi
 
 
 #create environment activation & deactivation
