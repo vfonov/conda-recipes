@@ -31,7 +31,7 @@ test:
   commands:
 
 build:
-  number: 0
+  number: 1
 
 about:
   home: http://www.povray.org/
