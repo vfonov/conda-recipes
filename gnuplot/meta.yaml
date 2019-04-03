@@ -1,0 +1,51 @@
+{% set pkgname = "gnuplot" %}
+{% set version = "5.2.6" %}
+{% set sha256 = "35dd8f013139e31b3028fac280ee12d4b1346d9bb5c501586d1b5a04ae7a94ee" %}
+
+package:
+  name: gnuplot-nox11
+  version: {{ version }}
+
+source:
+  url: https://sourceforge.net/projects/{{ pkgname }}/files/{{ pkgname }}/{{ version }}/{{ pkgname }}-{{ version }}.tar.gz
+  sha256: {{ sha256 }}
+
+build:
+  number: 0
+  skip: True  # [win]
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - pkg-config
+  host:
+    - libgd
+    - cairo
+    - freetype
+    - glib
+  run:
+    - libgd
+    - cairo
+    - pango
+    - freetype
+    - glib
+
+test:
+  files:
+    - test-data.txt
+  commands:
+    - gnuplot -e "set terminal dumb; set style histogram; p 'test-data.txt'"
+    - gnuplot -e "set terminal png"
+    - conda inspect linkages -p $PREFIX $PKG_NAME  # [not win]
+    - conda inspect objects -p $PREFIX $PKG_NAME   # [osx]
+
+about:
+  home: https://github.com/gnuplot/gnuplot
+  license: Gnuplot
+  license_file: Copyright
+  summary: Gnuplot, plotting from command line
+
+extra:
+  recipe-maintainers:
+    - vfonov
