@@ -7,7 +7,6 @@ mkdir -p build && cd build
 # don't build visual tools though
 # use external cache directory
 export CMAKE_PREFIX_PATH=${CONDA_PREFIX}
-# default configuration , trying to use as many prebuilt packages as possible
 
 if [[ -z ${MACOSX_DEPLOYMENT_TARGET} ]];then
     # building on linux
@@ -20,7 +19,6 @@ else # building on MacOSX
     export CXX=clang++
     export LDFLAGS="-L$CONDA_PREFIX/lib -Wl,-rpath,$CONDA_PREFIX/lib -headerpad_max_install_names $LDFLAGS"
     export LIBRARY_SEARCH_VAR=DYLD_FALLBACK_LIBRARY_PATH
-    #export MACOSX_DEPLOYMENT_TARGET="10.9"
     export CMAKE_LIBRARY_PATH=${CONDA_PREFIX}/lib:${CONDA_PREFIX}/lib64:
 fi
 
@@ -35,10 +33,10 @@ cmake .. \
       -DTIFF_LIBRARY_RELEASE:FILEPATH=${CONDA_PREFIX}/lib/libtiff${SHLIB_EXT}
 
 if [[ -z ${MACOSX_DEPLOYMENT_TARGET} ]];then
-    cmake ..  -DMT_USE_OPENMP:BOOL=ON
+    cmake ..  -DUSE_OPENMP:BOOL=ON
 else
     # OpenMP is not available on MacOSX
-    cmake ..  -DMT_USE_OPENMP:BOOL=OFF
+    cmake ..  -DUSE_OPENMP:BOOL=OFF
 fi
 
 # build and install
