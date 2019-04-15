@@ -27,7 +27,7 @@ test:
     - falcon_cortex_refine -help
 
 build:
-  number: 10
+  number: 13
 
 about:
   home: https://github.com/vfonov/falcon
