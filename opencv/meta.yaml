@@ -1,15 +1,17 @@
-{% set version = "3.4.5" %}
+{% set version = "4.1.0" %}
 
 package:
   name: opencv-suite
   version: {{ version }}
 
+
+#- git_url: https://github.com/opencv/opencv
+#  git_tag: {{ version }}
+
 source:
-  - git_url: https://github.com/opencv/opencv
-    git_tag: {{ version }}
-  # - url: https://github.com/opencv/opencv/archive/{{ version }}.zip
-  #   fn: opencv-{{ version }}.zip
-  #   sha256: 9405c5d7d8ab1696e98631d0c92125816356ec366a73c417bdcc4d74783b42aa
+  - url: https://github.com/opencv/opencv/archive/{{ version }}.zip
+    fn: opencv-{{ version }}.zip
+    sha256: 2c75b129da2e2c8728d168b7bf14ceca2da0ebe938557b109bae6742855ede13
     patches:
       - 0001-Use-OpenCV_INSTALL_BINARIES_PREFIX-instead-of-hardco.patch
       # - 0002-3.4.2-Allow-an-arbitrary-number-of-native-Python-interpret.patch
@@ -17,7 +19,7 @@ source:
       # - 0002-Allow-an-arbitrary-number-of-native-Python-interpret.patch
   - url: https://github.com/opencv/opencv_contrib/archive/{{ version }}.tar.gz
     fn: opencv_contrib-{{ version }}.tar.gz
-    sha256: 8f73d029887c726fed89c69a2b0fcb1d098099fcd81c1070e1af3b452669fbe2
+    sha256: e7d775cc0b87b04308823ca518b11b34cc12907a59af4ccdaf64419c1ba5e682
     folder: opencv_contrib-{{ version }}
 
 build:
