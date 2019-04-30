@@ -12,6 +12,12 @@ if [[ ! -z ${PERL5LIB_MINC_TOOLKIT_SAVE} ]];then
 export PERL5LIB=${PERL5LIB_MINC_TOOLKIT_SAVE}
 fi
 
+if [[ ! -z ${ANTSPATH_SAVE} ]];then
+export ANTSPATH=${ANTSPATH_SAVE}
+else
+unset ANTSPATH
+fi
+
 unset MNI_DATAPATH
 unset MINC_FORCE_V2
 unset MINC_COMPRESS
