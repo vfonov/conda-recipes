@@ -1,13 +1,13 @@
 {% set name = "minc2-simple" %}
-{% set version = "0.2.2.beta2" %}
+{% set version = "2.2.30" %}
 
 package:
   name: "{{ name|lower }}"
   version: "{{ version }}"
 
 source:
-  url: https://github.com/vfonov/minc2-simple/archive/v2.2.beta2.tar.gz
-  sha256: 7d2cc59449d6c2d7583d68b67c116f095301a5babc86c7806608517778ca0bf3
+  url: https://github.com/vfonov/minc2-simple/archive/v2.2.30.tar.gz
+  sha256: 241bf68379f79139d7e07500d49f3f666878ccb86cb7f9c89cdb3e69fc63668b
 
 build:
   number: 0
