@@ -1,6 +1,6 @@
 package:
   name: falcon
-  version: "0.1.5"
+  version: "0.1.6"
 
 source:
   path: ../../falcon/
@@ -26,7 +26,8 @@ test:
     - falcon_cortex_refine -help
 
 build:
-  number: 2
+  number: 3
+
 
 about:
   home: https://github.com/vfonov/falcon
