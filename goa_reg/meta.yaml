@@ -1,0 +1,24 @@
+package:
+  name: goa_reg
+  version: "0.0.1"
+
+source:
+  path: ../../goa_registration
+
+
+requirements:
+  build:
+    - cmake
+    - make
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }} 
+    - minc-toolkit-v2 {{ minc_toolkit_v2 }}
+  run:
+    - minc-toolkit-v2 {{ minc_toolkit_v2 }}
+
+
+build:
+  number: 0
+
+about:
+  summary: 'goa registration'
