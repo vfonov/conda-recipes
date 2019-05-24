@@ -28,6 +28,7 @@ export USE_SYSTEM_NCCL=0
 export USE_CUDA=OFF
 export USE_MKL=OFF
 export USE_OPENMP=ON
+export NO_MKLDNN=ON # because otherwise it tries to use AVX
 
 export NO_CUDA=1
 #export NO_DISTRIBUTED=OFF

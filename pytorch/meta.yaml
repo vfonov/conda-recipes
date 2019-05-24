@@ -1,5 +1,5 @@
-{% set version = "1.0.0" %}
-{% set commit = "db5d3131d16f57abd4f13d3f4b885d5f67bf6644" %}
+{% set version = "1.0.1" %}
+{% set commit = "bb15580e88cc963df22eab291fbe182f42426ad5" %}
 
 package:
   name: pytorch-cpu
@@ -9,7 +9,7 @@ source:
   git_url: https://github.com/pytorch/pytorch.git
   git_tag: {{ commit }}
   patches:
-     - fix_intel_mkl_issue55.patch
+#     - fix_intel_mkl_issue55.patch
 #    - 0001-Add-DCUDA_rt_LIBRARY-to-cmake-command.patch
 #    - 0002-lazy-bind-C-extension.patch
 #    - 0003-insure-system-nccl-is-used.patch
