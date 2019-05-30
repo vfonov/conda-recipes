@@ -1,0 +1,73 @@
+{% set version = '3.7-5' %}
+
+{% set posix = 'm2-' if win else '' %}
+{% set native = 'm2w64-' if win else '' %}
+
+package:
+  name: r-plotrix
+  version: {{ version|replace("-", "_") }}
+
+source:
+  url:
+    - {{ cran_mirror }}/src/contrib/plotrix_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/Archive/plotrix/plotrix_{{ version }}.tar.gz
+  sha256: b22f3f9d93961d23ad46e41597d1e45d2665ced04dcad8c40f6806a67cded14c
+
+build:
+  merge_build_host: True  # [win]
+  # If this is a new build for the same version, increment the build number.
+  number: 0
+
+  # This is required to make R link correctly on Linux.
+  rpaths:
+    - lib/R/lib/
+    - lib/
+
+requirements:
+  build:
+    - {{posix}}zip               # [win]
+
+  host:
+    - r-base
+
+  run:
+    - r-base
+
+test:
+  commands:
+    # You can put additional test commands to be run here.
+    - $R -e "library('plotrix')"           # [not win]
+    - "\"%R%\" -e \"library('plotrix')\""  # [win]
+
+  # You can also put a file called run_test.py, run_test.sh, or run_test.bat
+  # in the recipe that will be run at test time.
+
+  # requires:
+    # Put any additional test requirements here.
+
+about:
+  home: https://CRAN.R-project.org/package=plotrix
+  license: GPL (>= 2)
+  summary: Lots of plots, various labeling, axis and color scaling functions.
+  license_family: GPL3
+  license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2'
+
+# The original CRAN metadata for this package was:
+
+# Package: plotrix
+# Version: 3.7-5
+# Date: 2019-03-25
+# Title: Various Plotting Functions
+# Author: Jim Lemon, Ben Bolker, Sander Oom, Eduardo Klein, Barry Rowlingson, Hadley Wickham, Anupam Tyagi, Olivier Eterradossi, Gabor Grothendieck, Michael Toews, John Kane, Rolf Turner, Carl Witthoft, Julian Stander, Thomas Petzoldt, Remko Duursma, Elisa Biancotto, Ofir Levy, Christophe Dutang, Peter Solymos, Robby Engelmann,  Michael Hecker, Felix Steinbeck, Hans Borchers, Henrik Singmann, Ted Toal, Derek Ogle, Darshan Baral, Ulrike Groemping
+# Maintainer: Jim Lemon <drjimlemon@gmail.com>
+# Imports: grDevices, graphics, stats, utils
+# Description: Lots of plots, various labeling, axis and color scaling functions.
+# License: GPL (>= 2)
+# NeedsCompilation: no
+# Packaged: 2019-03-25 10:49:53 UTC; maechler
+# Repository: CRAN
+# Date/Publication: 2019-04-07 09:10:03 UTC
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml
