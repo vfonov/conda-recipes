@@ -15,7 +15,16 @@ export CMAKE_PREFIX_PATH=${CONDA_PREFIX}
 
 # default configuration , trying to use as many prebuilt packages as possible
 
-if [[ -z ${MACOSX_DEPLOYMENT_TARGET} ]];then
+
+if [[ $target_platform == osx-64 ]];then
+    # building on MacOSX
+    export CC=clang
+    export CXX=clang++
+    export LDFLAGS="-L$CONDA_PREFIX/lib -Wl,-rpath,$CONDA_PREFIX/lib -headerpad_max_install_names $LDFLAGS"
+    export LIBRARY_SEARCH_VAR=DYLD_FALLBACK_LIBRARY_PATH
+    #export MACOSX_DEPLOYMENT_TARGET="10.9"
+    export CMAKE_LIBRARY_PATH=${CONDA_PREFIX}/lib:${CONDA_PREFIX}/lib64:
+else 
     # building on linux
 
     # HACK to make cmake be able to find libm
@@ -23,14 +32,6 @@ if [[ -z ${MACOSX_DEPLOYMENT_TARGET} ]];then
     # maybe not such a good adea after all
 
     export CMAKE_LIBRARY_PATH=${CONDA_PREFIX}/lib:${CONDA_PREFIX}/lib64:${CONDA_PREFIX}/x86_64-conda_cos6-linux-gnu/sysroot/lib
-
-else # building on MacOSX
-    export CC=clang
-    export CXX=clang++
-    export LDFLAGS="-L$CONDA_PREFIX/lib -Wl,-rpath,$CONDA_PREFIX/lib -headerpad_max_install_names $LDFLAGS"
-    export LIBRARY_SEARCH_VAR=DYLD_FALLBACK_LIBRARY_PATH
-    #export MACOSX_DEPLOYMENT_TARGET="10.9"
-    export CMAKE_LIBRARY_PATH=${CONDA_PREFIX}/lib:${CONDA_PREFIX}/lib64:
 fi
 
 
@@ -131,14 +132,12 @@ make install
 
 
 if [ -n $building_itk ];then
-
 # a HACK to fix cmake dependencies tracking
 # TODO: find a better solution
 
-  # a hack to fix broken links inside external directories
-  # like /opt/conda/conda-bld/minc-toolkit-v2_1548109864776/work/build/external//opt/conda/conda-bld/minc-toolkit-v2_1548109864776/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placeho/lib/libniftiio.a
-  # also fix wrong links pointing to the build environment
-
+# a hack to fix broken links inside external directories
+# like /opt/conda/conda-bld/minc-toolkit-v2_1548109864776/work/build/external//opt/conda/conda-bld/minc-toolkit-v2_1548109864776/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placeho/lib/libniftiio.a
+# also fix wrong links pointing to the build environment
 
 for i in $( find ${PREFIX} -name '*.cmake');do
     # a hack to fix external libraries path
@@ -146,13 +145,17 @@ for i in $( find ${PREFIX} -name '*.cmake');do
     # substitute
     bad=$(pwd)/external/
 
-    sed -i -e "s/${bad//\//\\\/}//g" \
-           -e "s/${CONDA_PREFIX//\//\\\/}/${PREFIX//\//\\\/}/g" \
-           -e 's/\$SRC_DIR\/build\/external\///g' $i
+    # sed -i -e "s/${bad//\//\\\/}//g" \
+    #        -e "s/${CONDA_PREFIX//\//\\\/}/${PREFIX//\//\\\/}/g" \
+    #        -e 's/\$SRC_DIR\/build\/external\///g' $i
+    sed -i.bck \
+           -e "s#${bad}##g" \
+           -e "s#${CONDA_PREFIX}#${PREFIX}#g" \
+           -e "s#\$SRC_DIR\/build\/external\/##g" $i
+    # cleanup
+    rm -f $i.bck
 done
-
 fi
-
 
 #create environment activation & deactivation
 ACTIVATE_DIR=$PREFIX/etc/conda/activate.d
@@ -162,4 +165,3 @@ mkdir -p $DEACTIVATE_DIR
 
 cp $RECIPE_DIR/scripts/activate.sh $ACTIVATE_DIR/minc-toolkit-v2-activate.sh
 cp $RECIPE_DIR/scripts/deactivate.sh $DEACTIVATE_DIR/minc-toolkit-v2-deactivate.sh
-
