@@ -3,7 +3,8 @@ package:
   version: "0.9.0"
 
 source:
-  path: ../../falcon-gh
+  url: https://github.com/vfonov/falcon/archive/release-0.9.00.tar.gz
+  sha256: fc822d99d85edfeab63258dd99bc3fdde73feb3fefc777fa8eabdc09b646b31b
 
 requirements:
   build:
