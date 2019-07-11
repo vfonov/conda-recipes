@@ -3,9 +3,9 @@ package:
   version: "1.9.18"
 
 source:
-  #url: https://github.com/BIC-MNI/minc-toolkit-v2/releases/download/release-1.9.17/minc-toolkit-v2-1.9.17.tar.xz
-  #sha256: a1451452f0d4104d54ae8e12b9301aa9389395f701e481c2c3a1fa081a398dd8
-  path: /home/vfonov/src/minc-toolkit-v2
+  url: https://github.com/BIC-MNI/minc-toolkit-v2/releases/download/release-1.9.18-test/minc-toolkit-v2-49ae9f9d75450a9e213f88b7f651da340e75616c.tar.xz
+  sha256: 0457b1b746a757f40cd84dcb49dd5d1a78cb0fcd9fae9af4038c89e08a3c3b95
+  #path: /home/vfonov/src/minc-toolkit-v2
 
 requirements:
   build:
@@ -48,10 +48,10 @@ requirements:
 test:
   commands:
     - minccalc -version
-    - antsRegistration --version #[minctoolkit_variant != 'lite'] 
+    - antsRegistration --version # [minctoolkit_variant != 'lite'] 
 
 build:
-  number: 0
+  number: 1
   string: {{ minctoolkit_variant }}_h{{PKG_HASH}}_{{ PKG_BUILDNUM }}
 
 about:
