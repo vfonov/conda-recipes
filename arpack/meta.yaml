@@ -1,0 +1,43 @@
+{% set version = "3.6.3" %}
+
+package:
+  name: arpack
+  version: {{ version }}
+
+source:
+  fn: arpack-{{ version }}.tar.gz
+  url: https://github.com/opencollab/arpack-ng/archive/{{ version }}.tar.gz
+  sha256: 64f3551e5a2f8497399d82af3076b6a33bf1bc95fc46bbcabe66442db366f453
+
+build:
+  number: 1004
+  features:
+
+requirements:
+  build:
+    - cmake
+    - {{ compiler('fortran') }}  # [unix]
+    - {{ compiler('c') }}  # [unix]
+    - {{ compiler('m2w64_fortran') }}  # [win]
+    - {{ compiler('m2w64_c') }}  # [win]
+    - openblas
+  host:
+    - openblas
+
+test:
+  commands:
+    - test -f ${PREFIX}/lib/libarpack.a  # [unix]
+    - test -f ${PREFIX}/lib/libarpack${SHLIB_EXT}  # [unix]
+    - if not exist %PREFIX%\\Library\\mingw-w64\\lib\\libarpack.a exit 1  # [win]
+    - if not exist %PREFIX%\\Library\\mingw-w64\\lib\\libarpack.dll.a exit 1  # [win]
+    - if not exist %PREFIX%\\Library\\mingw-w64\\bin\\libarpack.dll exit 1  # [win]
+
+about:
+  home: https://github.com/opencollab/arpack-ng
+  license: BSD 3-Clause
+  license_file: COPYING
+  summary: Fortran77 subroutines designed to solve large scale eigenvalue problems
+
+extra:
+  recipe-maintainers:
+    - jschueller

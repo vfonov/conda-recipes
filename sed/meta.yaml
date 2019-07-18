@@ -1,0 +1,38 @@
+{% set version = "4.7" %}
+{% set sha256 = "2885768cd0a29ff8d58a6280a270ff161f6a3deb5690b2be6c49f46d4c67bd6a" %}
+
+package:
+  name: sed
+  version: {{ version }}
+
+source:
+  fn: sed-{{ version }}.tar.gz
+  url: http://ftp.gnu.org/gnu/sed/sed-{{ version }}.tar.xz
+  sha256: {{ sha256 }}
+
+build:
+  number: 1000
+  skip: true  # [win]
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - make
+  host:
+    - gettext >=0.19.2  # [osx]
+  run:
+    - gettext >=0.19.2  # [osx]
+
+test:
+  commands:
+    - test -f "${PREFIX}/bin/sed"
+    - sed --version
+
+about:
+  home: https://www.gnu.org/software/sed/
+  license: GPL-3
+  summary: 'sed (stream editor) is a non-interactive command-line text editor.'
+
+extra:
+  recipe-maintainers:
+    - tfors

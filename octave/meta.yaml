@@ -1,0 +1,123 @@
+{% set version = "4.4.1" %}
+
+package:
+  name: octave
+  version: {{ version }}
+
+source:
+  url: https://ftp.gnu.org/gnu/octave/octave-{{ version }}.tar.xz
+  #sha256: 87b4df6dfa28b1f8028f69659f7a1cabd50adfb81e1e02212ff22c863a29454e
+  sha256: 7e4e9ac67ed809bd56768fb69807abae0d229f4e169db63a37c11c9f08215f90
+  patches:
+    # patches taken from macports
+    # https://github.com/macports/macports-ports/tree/master/math/octave/files
+    # Link fails with undefined symbol ~file_stat
+    # - patch-file-stat.cc.diff
+    # qscintilla2 library is not found without this
+    # - patch-qscintilla2.diff
+
+build:
+  number: 3
+  skip: True  # [win]
+  detect_binary_files_with_prefix: True
+  binary_has_prefix_files: # maybe not needed
+    bin/mkoctfile
+    bin/octave
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - {{ compiler('fortran') }}
+    - perl
+    - pkg-config  
+    - sed
+    - mkl
+    - zlib
+    - imagemagick 
+    - hdf5
+    - suitesparse
+    - openssl
+    - libpng
+    - fontconfig
+    - freetype
+    - bison 
+    - flex
+    - qhull
+    - glpk
+    - libtool
+    - make
+    - arpack
+    - openblas
+  host:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - {{ compiler('fortran') }}
+    - pcre
+    - make
+    - readline
+    - curl
+    - fftw
+    # - fontconfig
+    # - freetype
+    # - libpng
+    # - glpk
+    - hdf5
+    - suitesparse
+    - zlib
+    - bzip2
+    - imagemagick 
+    - icu
+    - ncurses
+    - xz
+    - libxml2
+    - glib
+    - qt
+    - openssl
+    - sed 
+    - openblas
+    - bison
+    - qhull
+    - libtool
+    - arpack
+  run:
+    - arpack
+    - pcre
+    - readline
+    - curl
+    - {{ pin_compatible("fftw", max_pin="x.x") }}
+    - {{ pin_compatible("openblas", max_pin="x.x") }}
+#    - fontconfig
+#    - freetype
+#    - libpng
+    - glpk
+    - hdf5
+    - {{ pin_compatible("suitesparse", max_pin="x.x") }}
+    - zlib
+    - bzip2
+    - {{ pin_compatible("imagemagick") }} 
+    # Following gets linked at the end.
+    - icu
+    - ncurses
+    - xz
+    - libxml2
+    - glib
+    - qt
+    - openssl
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - {{ compiler('fortran') }}
+
+test:
+  requires:
+  commands:
+    - octave --version
+    - touch test_file.txt
+    - octave test_file.txt
+
+about:
+  home: https://www.gnu.org/software/octave/
+  license: GPLv3
+  license_file: COPYING
+  doc_url: https://www.gnu.org/software/octave/doc/interpreter/
+  summary: 'GNU Octave is a high-level language, primarily intended for numerical computations'
