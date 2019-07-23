@@ -1,4 +1,4 @@
-{% set version = '0.0.9' %}
+{% set version = '0.1.1' %}
 
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
@@ -9,9 +9,8 @@ package:
 
 source:
   url:
-    - {{ cran_mirror }}/src/contrib/osmdata_{{ version }}.tar.gz
-    - {{ cran_mirror }}/src/contrib/Archive/osmdata/osmdata_{{ version }}.tar.gz
-  sha256: 8c5bdd676857b505f8f3b4ec31f68fe10cdc89323752782429049d7a137c7afe
+    - https://github.com/ropensci/osmdata/archive/v0.1.1.tar.gz
+  sha256: 69704a7cba5aac995bcbfa5ed8abf2d798048b56fa5d270bbe8a44bb6ed80b2b
 
 build:
   merge_build_host: True  # [win]

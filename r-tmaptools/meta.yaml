@@ -1,4 +1,4 @@
-{% set version = '2.0-1' %}
+{% set version = '2.0-2' %}
 
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
@@ -11,7 +11,7 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/tmaptools_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/tmaptools/tmaptools_{{ version }}.tar.gz
-  sha256: 9febf4dc5128ddc977bdecfb0c3dd32e99f280b0aec5787f3fab76720716d27d
+  sha256: 04850dcd778a9c5ea79b2b78e458549eba8a5d461cba2e32bac0c483072315d9
 
 build:
   merge_build_host: True  # [win]
