@@ -1,0 +1,55 @@
+package:
+  name: mrtrix3
+  version: "3.0_RC3"
+
+source:
+  url: https://github.com/MRtrix3/mrtrix3/archive/3.0_RC3.tar.gz
+  sha256: 1eebd96d476772b4f1aaad2d362af575e70fd2de0bede61a658758ffd9793b4d
+
+requirements:
+  build:
+    - make
+    - libgcc
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - {{ cdt('mesa-libgl-devel') }}      # [linux]
+    - {{ cdt('mesa-libegl-devel') }}     # [linux]
+    - {{ cdt('mesa-dri-drivers') }}      # [linux]
+    - {{ cdt('libxau-devel') }}          # [linux]
+    - {{ cdt('xorg-x11-proto-devel') }}  # [linux]
+    - {{ cdt('libxext-devel') }}         # [linux]
+    - {{ cdt('libxrender-devel') }}      # [linux]
+    - {{ cdt('libdrm-devel') }}          # [linux]
+    - {{ cdt('libxcomposite-devel') }}   # [linux]
+    - {{ cdt('libxcursor-devel') }}      # [linux]
+    - {{ cdt('libxi-devel') }}           # [linux]
+    - {{ cdt('libxtst-devel') }}         # [linux]
+    - {{ cdt('libx11-devel') }}          # [linux]
+    - {{ cdt('libxxf86vm') }}            # [linux]
+    - {{ cdt('libxfixes') }}             # [linux]
+    - {{ cdt('libxfixes-devel') }}       # [linux]
+    - {{ cdt('libselinux-devel') }}      # [linux]
+    - {{ cdt('libxdamage') }}            # [linux]
+    - {{ cdt('libxdamage-devel') }}      # [linux]
+    - qt=5.9.7
+    - eigen
+    - zlib
+    - libtiff
+    - fftw
+
+  run: 
+    - qt=5.9.7
+    - fftw
+    - zlib
+    - libtiff
+
+build:
+  number: 0
+
+test:
+  commands:
+  - dwiintensitynorm -help
+
+
+about:
+  home: https://www.mrtrix.org
