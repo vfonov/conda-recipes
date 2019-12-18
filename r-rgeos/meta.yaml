@@ -39,18 +39,18 @@ requirements:
     - {{posix}}make
     - {{posix}}coreutils         # [win]
     - {{posix}}zip               # [win]
-    - geos
+    - geos >=3.7.1
 
   host:
     - r-base
     - r-sp >=1.1_0
-    - geos
+    - geos >=3.7.1
 
   run:
     - r-base
     - {{native}}gcc-libs         # [win]
     - r-sp >=1.1_0
-    - geos
+    - geos >=3.7.1
 
 test:
   commands:

@@ -56,7 +56,7 @@ if [[ -z ${MACOSX_DEPLOYMENT_TARGET} ]];then
     CMAKE_FLAGS="${CMAKE_FLAGS} -DMT_USE_OPENMP:BOOL=ON"
 else
     # OpenMP is not available on MacOSX
-    CMAKE_FLAGS="${CMAKE_FLAGS} -DMT_USE_OPENMP:BOOL=ON"
+    CMAKE_FLAGS="${CMAKE_FLAGS} -DMT_USE_OPENMP:BOOL=OFF"
 fi
 
 
@@ -146,9 +146,11 @@ for i in $( find ${PREFIX} -name '*.cmake');do
     # substitute
     bad=$(pwd)/external/
 
-    sed -i -e "s/${bad//\//\\\/}//g" \
+    sed -i '.bck' -e "s/${bad//\//\\\/}//g" \
            -e "s/${CONDA_PREFIX//\//\\\/}/${PREFIX//\//\\\/}/g" \
            -e 's/\$SRC_DIR\/build\/external\///g' $i
+    
+    rm -f $i.bck
 done
 
 fi
