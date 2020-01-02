@@ -16,7 +16,6 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}  
     - {{ compiler('fortran') }}
-    - system                     # [linux]
     - openblas =0.3.3            # [minctoolkit_variant == 'openblas'] 
     - hdf5 ==1.10.4
     - pcre
@@ -51,7 +50,7 @@ test:
     - antsRegistration --version #[minctoolkit_variant != 'lite'] 
 
 build:
-  number: 0
+  number: 1
   string: {{ minctoolkit_variant }}_h{{PKG_HASH}}_{{ PKG_BUILDNUM }}
 
 about:
