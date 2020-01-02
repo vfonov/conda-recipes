@@ -1,5 +1,5 @@
 #! /bin/bash
-
+se
 set -e 
 
 mkdir -p build && cd build
@@ -146,10 +146,10 @@ for i in $( find ${PREFIX} -name '*.cmake');do
     # substitute
     bad=$(pwd)/external/
 
-    sed -i '.bck' -e "s/${bad//\//\\\/}//g" \
-           -e "s/${CONDA_PREFIX//\//\\\/}/${PREFIX//\//\\\/}/g" \
-           -e 's/\$SRC_DIR\/build\/external\///g' $i
-    
+    sed -i  -e "s#${bad}##g" \
+            -e "s#${CONDA_PREFIX}#${PREFIX}#g" \
+            -e 's#\$SRC_DIR/build/external/##g' $i
+
     rm -f $i.bck
 done
 
