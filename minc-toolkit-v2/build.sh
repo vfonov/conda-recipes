@@ -1,6 +1,5 @@
 #! /bin/bash
-se
-set -e 
+set -e
 
 mkdir -p build && cd build
 # assume correct compilers will be setup by environment
