@@ -1,4 +1,4 @@
-{% set version = '0.7-3' %}
+{% set version = '0.8-0' %}
 
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
@@ -8,26 +8,29 @@ package:
   version: {{ version|replace("-", "_") }}
 
 source:
-  url: https://github.com/vfonov/sf/archive/master.tar.gz
-  sha256: bf4c6580d2fe72e384d0a10a6e402a81b1157f45f2aefc5d0f9b22a10c5a6e7b
+  url:
+    - {{ cran_mirror }}/src/contrib/sf_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/Archive/sf/sf_{{ version }}.tar.gz
+  sha256: 8ee354f70b073bce124f2c138ebd2748936f890a7b4c380075c189cf36c0be15
 
 build:
   merge_build_host: True  # [win]
   # If this is a new build for the same version, increment the build number.
-  number: 1
+  number: 0
+  # no skip
 
   # This is required to make R link correctly on Linux.
   rpaths:
     - lib/R/lib/
     - lib/
 
-# Suggests: blob, covr, dplyr (>= 0.7-0), ggplot2, knitr, lwgeom (>= 0.1-5), maps, maptools, mapview, microbenchmark, odbc, pillar, pool, raster, rgdal, rgeos, rlang, rmarkdown, RPostgres (>= 1.1.0), RPostgreSQL, RSQLite, sp (>= 1.2-4), spatstat, stars (>= 0.2-0), testthat, tibble (>= 1.4.1), tidyr (>= 0.7-2), tidyselect, tmap (>= 2.0)
+# Suggests: blob, covr, dplyr (>= 0.8-3), ggplot2, knitr, lwgeom (>= 0.1-5), maps, maptools, mapview, microbenchmark, odbc, pillar, pool, raster, rgdal, rgeos, rlang, rmarkdown, RPostgres (>= 1.1.0), RPostgreSQL, RSQLite, sp (>= 1.2-4), spatstat, stars (>= 0.2-0), testthat, tibble (>= 1.4.1), tidyr (>= 1.0-0), tmap (>= 2.0), vctrs
 requirements:
   build:
-    - {{ compiler('c') }}        # [not win]
-    - {{ compiler('cxx') }}      # [not win]
-    - {{ compiler('fortran') }}      # [not win]
-    - {{native}}toolchain        # [win]
+    - {{ compiler('c') }}              # [not win]
+    - {{ compiler('m2w64_c') }}        # [win]
+    - {{ compiler('cxx') }}            # [not win]
+    - {{ compiler('m2w64_cxx') }}      # [win]
     - {{posix}}filesystem        # [win]
     - {{posix}}sed               # [win]
     - {{posix}}grep              # [win]
@@ -45,25 +48,24 @@ requirements:
   host:
     - r-base
     - r-dbi >=0.8
-    - r-rcpp
-    - r-classint >=0.2_1
+    - r-rcpp >=0.12.18
+    - r-classint >=0.4_1
     - r-magrittr
     - r-units >=0.6_0
     - geos
-    - libgdal
+    - libgdal >=3.0.2
     - proj4
-    - pkg-config
 
   run:
     - r-base
     - {{native}}gcc-libs         # [win]
     - r-dbi >=0.8
-    - r-rcpp
-    - r-classint >=0.2_1
+    - r-rcpp >=0.12.18
+    - r-classint >=0.4_1
     - r-magrittr
     - r-units >=0.6_0
     - geos
-    - libgdal
+    - libgdal >=3.0.2
     - proj4
 
 test:
@@ -79,40 +81,43 @@ test:
     # Put any additional test requirements here.
 
 about:
-  home: https://github.com/r-spatial/sf/
-  license: GPL-2 | MIT + file LICENSE
+  home: https://github.com/r-spatial/sf/, https://r-spatial.github.io/sf/
+  license: GPL-2 | MIT
   summary: Support for simple features, a standardized way to encode spatial vector data. Binds
     to 'GDAL' for reading and writing data, to 'GEOS' for geometrical operations, and
     to 'PROJ' for projection conversions and datum transformations.
   license_family: GPL2
+  license_file:
+    - '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2'
+    - '{{ environ["PREFIX"] }}/lib/R/share/licenses/MIT'
+    - LICENSE
 
 # The original CRAN metadata for this package was:
 
 # Package: sf
-# Version: 0.7-2
-# Date: 2018-11-24
+# Version: 0.8-0
 # Title: Simple Features for R
-# Authors@R:  c(person(given = "Edzer", family = "Pebesma", role = c("aut", "cre"), email = "edzer.pebesma@uni-muenster.de", comment = c(ORCID = "0000-0001-8049-7069")), person(given = "Roger", family = "Bivand", role = "ctb", comment = c(ORCID = "0000-0003-2392-6140")), person(given = "Etienne", family = "Racine", role = "ctb"), person(given = "Michael", family = "Sumner", role = "ctb"), person(given = "Ian", family = "Cook", role = "ctb"), person(given = "Tim", family = "Keitt", role = "ctb"), person(given = "Robin", family = "Lovelace", role = "ctb"), person(given = "Hadley", family = "Wickham", role = "ctb"), person(given = "Jeroen", family = "Ooms", role = "ctb", comment = c(ORCID = "0000-0002-4035-0289")), person(given = "Kirill", family = "Muller", role = "ctb"))
+# Authors@R: c(person(given = "Edzer", family = "Pebesma", role = c("aut", "cre"), email = "edzer.pebesma@uni-muenster.de", comment = c(ORCID = "0000-0001-8049-7069")), person(given = "Roger", family = "Bivand", role = "ctb", comment = c(ORCID = "0000-0003-2392-6140")), person(given = "Etienne", family = "Racine", role = "ctb"), person(given = "Michael", family = "Sumner", role = "ctb"), person(given = "Ian", family = "Cook", role = "ctb"), person(given = "Tim", family = "Keitt", role = "ctb"), person(given = "Robin", family = "Lovelace", role = "ctb"), person(given = "Hadley", family = "Wickham", role = "ctb"), person(given = "Jeroen", family = "Ooms", role = "ctb", comment = c(ORCID = "0000-0002-4035-0289")), person(given = "Kirill", family = "Muller", role = "ctb"), person(given = "Thomas Lin", family = "Pedersen", role = "ctb"), person(given = "Dan", family = "Baston", role = "ctb"))
 # Description: Support for simple features, a standardized way to encode spatial vector data. Binds to 'GDAL' for reading and writing data, to 'GEOS' for geometrical operations, and to 'PROJ' for projection conversions and datum transformations.
 # License: GPL-2 | MIT + file LICENSE
-# URL: https://github.com/r-spatial/sf/
+# URL: https://github.com/r-spatial/sf/, https://r-spatial.github.io/sf/
 # BugReports: https://github.com/r-spatial/sf/issues/
 # Depends: methods, R (>= 3.3.0)
-# Imports: classInt (>= 0.2-1), DBI (>= 0.8), graphics, grDevices, grid, magrittr, Rcpp, stats, tools, units (>= 0.6-0), utils
-# Suggests: blob, covr, dplyr (>= 0.7-0), ggplot2, knitr, lwgeom (>= 0.1-5), maps, maptools, mapview, microbenchmark, odbc, pillar, pool, raster, rgdal, rgeos, rlang, rmarkdown, RPostgres (>= 1.1.0), RPostgreSQL, RSQLite, sp (>= 1.2-4), spatstat, stars (>= 0.2-0), testthat, tibble (>= 1.4.1), tidyr (>= 0.7-2), tidyselect, tmap (>= 2.0)
+# Imports: classInt (>= 0.4-1), DBI (>= 0.8), graphics, grDevices, grid, magrittr, Rcpp (>= 0.12.18), stats, tools, units (>= 0.6-0), utils
+# Suggests: blob, covr, dplyr (>= 0.8-3), ggplot2, knitr, lwgeom (>= 0.1-5), maps, maptools, mapview, microbenchmark, odbc, pillar, pool, raster, rgdal, rgeos, rlang, rmarkdown, RPostgres (>= 1.1.0), RPostgreSQL, RSQLite, sp (>= 1.2-4), spatstat, stars (>= 0.2-0), testthat, tibble (>= 1.4.1), tidyr (>= 1.0-0), tmap (>= 2.0), vctrs
 # LinkingTo: Rcpp
 # VignetteBuilder: knitr
 # Encoding: UTF-8
 # RoxygenNote: 6.1.1
 # SystemRequirements: C++11, GDAL (>= 2.0.1), GEOS (>= 3.4.0), PROJ (>= 4.8.0)
-# Collate: 'RcppExports.R' 'init.R' 'crs.R' 'bbox.R' 'read.R' 'db.R' 'sfc.R' 'sfg.R' 'sf.R' 'bind.R' 'wkb.R' 'wkt.R' 'plot.R' 'geom.R' 'transform.R' 'sp.R' 'grid.R' 'arith.R' 'tidyverse.R' 'cast_sfg.R' 'cast_sfc.R' 'graticule.R' 'datasets.R' 'aggregate.R' 'agr.R' 'maps.R' 'join.R' 'sample.R' 'valid.R' 'collection_extract.R' 'jitter.R' 'sgbp.R' 'spatstat.R' 'stars.R' 'crop.R' 'gdal_utils.R' 'nearest.R' 'deprecated.R'
+# Collate: 'RcppExports.R' 'init.R' 'crs.R' 'bbox.R' 'read.R' 'db.R' 'sfc.R' 'sfg.R' 'sf.R' 'bind.R' 'wkb.R' 'wkt.R' 'plot.R' 'geom.R' 'transform.R' 'sp.R' 'grid.R' 'arith.R' 'tidyverse.R' 'cast_sfg.R' 'cast_sfc.R' 'graticule.R' 'datasets.R' 'aggregate.R' 'agr.R' 'maps.R' 'join.R' 'sample.R' 'valid.R' 'collection_extract.R' 'jitter.R' 'sgbp.R' 'spatstat.R' 'stars.R' 'crop.R' 'gdal_utils.R' 'nearest.R' 'normalize.R' 'deprecated.R'
 # NeedsCompilation: yes
-# Packaged: 2018-12-20 08:55:02 UTC; edzer
-# Author: Edzer Pebesma [aut, cre] (<https://orcid.org/0000-0001-8049-7069>), Roger Bivand [ctb] (<https://orcid.org/0000-0003-2392-6140>), Etienne Racine [ctb], Michael Sumner [ctb], Ian Cook [ctb], Tim Keitt [ctb], Robin Lovelace [ctb], Hadley Wickham [ctb], Jeroen Ooms [ctb] (<https://orcid.org/0000-0002-4035-0289>), Kirill Muller [ctb]
+# Packaged: 2019-09-16 20:18:14 UTC; edzer
+# Author: Edzer Pebesma [aut, cre] (<https://orcid.org/0000-0001-8049-7069>), Roger Bivand [ctb] (<https://orcid.org/0000-0003-2392-6140>), Etienne Racine [ctb], Michael Sumner [ctb], Ian Cook [ctb], Tim Keitt [ctb], Robin Lovelace [ctb], Hadley Wickham [ctb], Jeroen Ooms [ctb] (<https://orcid.org/0000-0002-4035-0289>), Kirill Muller [ctb], Thomas Lin Pedersen [ctb], Dan Baston [ctb]
 # Maintainer: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
 # Repository: CRAN
-# Date/Publication: 2018-12-20 10:10:03 UTC
+# Date/Publication: 2019-09-17 04:40:03 UTC
 
 # See
-# http://docs.continuum.io/conda/build.html for
+# https://docs.conda.io/projects/conda-build for
 # more information about meta.yaml

@@ -8,8 +8,8 @@ if [[ ${target_platform} =~ linux.* ]] || [[ ${target_platform} == win-32 ]] || 
   grep -va '^Priority: ' DESCRIPTION.old > DESCRIPTION
   ${R} CMD INSTALL --build .
 else
-  mkdir -p "${PREFIX}"/lib/R/library/sf
-  mv ./* "${PREFIX}"/lib/R/library/sf
+  mkdir -p "${PREFIX}"/lib/R/library/classInt
+  mv ./* "${PREFIX}"/lib/R/library/classInt
 
   if [[ ${target_platform} == osx-64 ]]; then
     pushd "${PREFIX}"
