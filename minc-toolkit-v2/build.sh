@@ -145,9 +145,10 @@ for i in $( find ${PREFIX} -name '*.cmake');do
     # substitute
     bad=$(pwd)/external/
 
-    sed -i  -e "s#${bad}##g" \
-            -e "s#${CONDA_PREFIX}#${PREFIX}#g" \
-            -e 's#\$SRC_DIR/build/external/##g' $i
+    sed -e "s#${bad}##g" \
+        -e "s#${CONDA_PREFIX}#${PREFIX}#g" \
+        -e 's#\$SRC_DIR/build/external/##g' \
+        -i  $i
 
     rm -f $i.bck
 done
