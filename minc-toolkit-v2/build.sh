@@ -141,16 +141,15 @@ if [ -n $building_itk ];then
 
 for i in $( find ${PREFIX} -name '*.cmake');do
     # a hack to fix external libraries path
-
     # substitute
     bad=$(pwd)/external/
 
-    sed -e "s#${bad}##g" \
+    sed -i '' \
+        -e "s#${bad}##g" \
         -e "s#${CONDA_PREFIX}#${PREFIX}#g" \
-        -e 's#\$SRC_DIR/build/external/##g' \
-        -i  $i
+        -e "s#${SRC_DIR}/build/external/##g" \
+        $i
 
-    rm -f $i.bck
 done
 
 fi
