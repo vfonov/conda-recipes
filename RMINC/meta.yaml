@@ -11,7 +11,7 @@ package:
 
 source:
   url: https://github.com/vfonov/RMINC/archive/develop-tidy.tar.gz
-  sha256: a76a7e09fd1c76e3a54c1d2601ca7ec277f0c1a26b3c422d7f8ec439ddcf6283
+  sha256: db027dae3c6b2a61796ede2de271015ef01f9bf61f533ab9cfea1bed5913b191
 
 build:
   number: 1
