@@ -44,7 +44,7 @@ requirements:
     - r-rjson
     - r-DT
     - r-rlang
-    - minc-toolkit-v2
+    - minc-toolkit-v2 {{ minc_toolkit_v2 }}
     - zlib
 
   build:
@@ -52,12 +52,12 @@ requirements:
     - {{ compiler('c') }}        [linux]
     - {{ compiler('cxx') }}      [linux]
     - {{ compiler('fortran') }}  [linux]
-    - minc-toolkit-v2
+    - minc-toolkit-v2 {{ minc_toolkit_v2 }}
     - r-base {{ r_base }}
     - zlib
 
   run:
-    - minc-toolkit-v2
+    - minc-toolkit-v2 {{ minc_toolkit_v2 }}
     - zlib
     - r-base {{ r_base }}
     - r-dplyr
