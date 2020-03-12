@@ -6,10 +6,12 @@ package:
   version: "{{ version }}"
 
 source:
-  path: /data/vfonov/src/pyezminc
+  #path: /data/vfonov/src/pyezminc
+  git_url: https://github.com/BIC-MNI/pyezminc.git
+  git_rev: master-python3
 
 build:
-  number: 1
+  number: 2
   script: "{{ PYTHON }} setup.py install "
 
 requirements:
@@ -18,17 +20,17 @@ requirements:
     - pip
     - python
     - cython
-    - minc-toolkit-v2
+    - minc-toolkit-v2 {{ minc_toolkit_v2 }}
   build:
     - numpy
     - cython
     - {{ compiler('c') }}        [linux]
     - {{ compiler('cxx') }}      [linux]
     - setuptools
-    - minc-toolkit-v2
+    - minc-toolkit-v2 {{ minc_toolkit_v2 }}
   run:
     - scipy
-    - minc-toolkit-v2
+    - minc-toolkit-v2 {{ minc_toolkit_v2 }}
     - python
     - numpy
 
