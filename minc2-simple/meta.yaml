@@ -10,7 +10,7 @@ source:
   sha256: 241bf68379f79139d7e07500d49f3f666878ccb86cb7f9c89cdb3e69fc63668b
 
 build:
-  number: 0
+  number: 1
   script: "{{ PYTHON }} python/setup.py install "
 
 requirements:
@@ -18,7 +18,7 @@ requirements:
     - numpy
     - pip
     - python
-    - minc-toolkit-v2
+    - minc-toolkit-v2 {{ minc_toolkit_v2 }}
     - cffi
     - six
   build:
@@ -26,9 +26,9 @@ requirements:
     - {{ compiler('c') }}        [linux]
     - {{ compiler('cxx') }}      [linux]
     - setuptools
-    - minc-toolkit-v2
+    - minc-toolkit-v2 {{ minc_toolkit_v2 }}
   run:
-    - minc-toolkit-v2
+    - minc-toolkit-v2 {{ minc_toolkit_v2 }}
     - python
     - numpy
     - six
