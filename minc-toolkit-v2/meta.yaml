@@ -5,9 +5,9 @@ package:
 source:
   #url: https://github.com/BIC-MNI/minc-toolkit-v2/releases/download/release-1.9.17/minc-toolkit-v2-1.9.17.tar.xz
   #sha256: a1451452f0d4104d54ae8e12b9301aa9389395f701e481c2c3a1fa081a398dd8
-  #path: ../minc-toolkit-v2
-  git_url: https://github.com/BIC-MNI/minc-toolkit-v2.git
-  git_rev: develop-1.9.18
+  path: /home/vfonov/src/minc-toolkit-v2
+  #git_url: https://github.com/BIC-MNI/minc-toolkit-v2.git
+  #git_rev: develop-1.9.18
 
 requirements:
   build:
@@ -37,7 +37,7 @@ requirements:
     - openblas =0.3.3        # [minctoolkit_variant == 'openblas'] 
     - hdf5 ==1.10.4
     - pcre
-    - libnetcdf  ==4.6.1
+    - libnetcdf ==4.6.1
     - zlib
     - gsl
     - fftw
@@ -52,7 +52,7 @@ test:
     - antsRegistration --version # [minctoolkit_variant != 'lite'] 
 
 build:
-  number: 2
+  number: 3
   string: {{ minctoolkit_variant }}_h{{PKG_HASH}}_{{ PKG_BUILDNUM }}
 
 about:

@@ -40,6 +40,17 @@ if [ ${minctoolkit_variant} == "lite" ];then
     -DMT_BUILD_ANTS:BOOL=OFF \
     -DMT_BUILD_C3D:BOOL=OFF \
     -DMT_BUILD_ELASTIX:BOOL=OFF "
+elif [ ${minctoolkit_variant} == "noblas" ];then
+ building_itk=yes
+ # force not to use openblas to avoid conflits with other software
+ CMAKE_FLAGS=" \
+  -DMT_BUILD_ITK_TOOLS:BOOL=ON \
+  -DMT_BUILD_OPENBLAS:BOOL=OFF \
+  -DOpenBLAS_FOUND:BOOL=OFF \
+  -DMT_BUILD_LITE:BOOL=OFF \
+  -DMT_BUILD_ANTS:BOOL=ON \
+  -DMT_BUILD_C3D:BOOL=ON \
+  -DMT_BUILD_ELASTIX:BOOL=ON "
 else
  building_itk=yes
  CMAKE_FLAGS=" \
@@ -143,12 +154,19 @@ for i in $( find ${PREFIX} -name '*.cmake');do
     # substitute
     bad=$(pwd)/external/
 
-    sed -i '' \
-        -e "s#${bad}##g" \
-        -e "s#${CONDA_PREFIX}#${PREFIX}#g" \
-        -e "s#${SRC_DIR}/build/external/##g" \
-        $i
-
+    if [[ -z ${MACOSX_DEPLOYMENT_TARGET} ]];then
+        sed -i \
+            -e "s#${bad}##g" \
+            -e "s#${CONDA_PREFIX}#${PREFIX}#g" \
+            -e "s#${SRC_DIR}/build/external/##g" \
+            $i
+    else
+        sed -i '' \
+            -e "s#${bad}##g" \
+            -e "s#${CONDA_PREFIX}#${PREFIX}#g" \
+            -e "s#${SRC_DIR}/build/external/##g" \
+            $i
+    fi
 done
 
 fi
@@ -162,4 +180,3 @@ mkdir -p $DEACTIVATE_DIR
 
 cp $RECIPE_DIR/scripts/activate.sh $ACTIVATE_DIR/minc-toolkit-v2-activate.sh
 cp $RECIPE_DIR/scripts/deactivate.sh $DEACTIVATE_DIR/minc-toolkit-v2-deactivate.sh
-

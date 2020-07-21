@@ -1,4 +1,5 @@
 minctoolkit_variant:
   - openblas
   - lite
-
+  - noblas
+  
