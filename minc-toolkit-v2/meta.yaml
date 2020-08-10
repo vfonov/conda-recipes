@@ -3,9 +3,8 @@ package:
   version: "1.9.18"
 
 source:
-  #url: https://github.com/BIC-MNI/minc-toolkit-v2/releases/download/release-1.9.17/minc-toolkit-v2-1.9.17.tar.xz
-  #sha256: a1451452f0d4104d54ae8e12b9301aa9389395f701e481c2c3a1fa081a398dd8
-  path: /home/vfonov/src/minc-toolkit-v2
+  url: https://github.com/BIC-MNI/minc-toolkit-v2/releases/download/release-1.9.18/minc-toolkit-v2-1.9.18.tar.xz
+  sha256: 0e98853101ecd9b08ef0285d6303d0f341d815ffc9730c68f69b80eace640afa
   #git_url: https://github.com/BIC-MNI/minc-toolkit-v2.git
   #git_rev: develop-1.9.18
 
@@ -52,7 +51,7 @@ test:
     - antsRegistration --version # [minctoolkit_variant != 'lite'] 
 
 build:
-  number: 3
+  number: 4
   string: {{ minctoolkit_variant }}_h{{PKG_HASH}}_{{ PKG_BUILDNUM }}
 
 about:
