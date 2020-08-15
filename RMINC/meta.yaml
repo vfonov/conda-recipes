@@ -14,7 +14,7 @@ source:
   sha256: db027dae3c6b2a61796ede2de271015ef01f9bf61f533ab9cfea1bed5913b191
 
 build:
-  number: 1
+  number: 2
 
   # This is required to make R link correctly on Linux.
   rpaths:
