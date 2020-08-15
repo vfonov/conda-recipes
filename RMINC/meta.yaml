@@ -1,5 +1,5 @@
 {% set name = "RMINC" %}
-{% set version = "1.5.2.2" %}
+{% set version = "1.5.2.3" %}
 
 # probably will not wotk on windows anyway 
 {% set posix = 'm2-' if win else '' %}
@@ -10,11 +10,11 @@ package:
   version: "{{ version }}"
 
 source:
-  url: https://github.com/vfonov/RMINC/archive/develop-tidy.tar.gz
-  sha256: db027dae3c6b2a61796ede2de271015ef01f9bf61f533ab9cfea1bed5913b191
+  url: https://github.com/vfonov/RMINC/archive/v1.5.2.3tidy.tar.gz
+  sha256: fb097f7055afbaf4488db6a3d3a320981a0e5efaabdfbabf23605da83d45b873
 
 build:
-  number: 2
+  number: 1
 
   # This is required to make R link correctly on Linux.
   rpaths:
