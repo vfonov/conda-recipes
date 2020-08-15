@@ -1,0 +1,56 @@
+{% set name = "yq" %}
+{% set version = "2.10.1" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
+  sha256: f6252a0757d0c2a9e55b4402e176a7e41a99e0e6dd5be4f9d5a4d651eeb4d6c0
+
+build:
+  number: 0
+  entry_points:
+    - yq=yq:cli
+    - xq=yq:xq_cli
+  script: "{{ PYTHON }} -m pip install . -vv"
+
+requirements:
+  host:
+    - argcomplete >=1.8.1
+    - pip
+    - python
+    - pyyaml >=3.11
+    - setuptools
+    - xmltodict >=0.11.0
+  run:
+    - argcomplete >=1.8.1
+    - python
+    - pyyaml >=3.11
+    - setuptools
+    - xmltodict >=0.11.0
+
+test:
+  imports:
+    - yq
+  commands:
+    - yq --help
+    - xq --help
+  requires:
+    - coverage
+    - flake8
+    - wheel
+
+about:
+  home: "https://github.com/kislyuk/yq"
+  license: Apache Software
+  license_family: APACHE
+  license_file: 
+  summary: "Command-line YAML/XML processor - jq wrapper for YAML/XML documents"
+  doc_url: 
+  dev_url: 
+
+extra:
+  recipe-maintainers:
+    - your-github-id-here
