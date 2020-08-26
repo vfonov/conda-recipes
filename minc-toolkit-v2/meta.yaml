@@ -3,11 +3,11 @@ package:
   version: "1.9.18"
 
 source:
-  #url: https://github.com/BIC-MNI/minc-toolkit-v2/releases/download/release-1.9.18/minc-toolkit-v2-1.9.18.tar.xz
-  #sha256: 0e98853101ecd9b08ef0285d6303d0f341d815ffc9730c68f69b80eace640afa
+  url: https://github.com/BIC-MNI/minc-toolkit-v2/releases/download/release-1.9.18/minc-toolkit-v2-1.9.18.tar.xz
+  sha256: 4295561bfcfb8778287df24358e001a6c029ef964799aa279840dd5b117eebd8
   #git_url: https://github.com/BIC-MNI/minc-toolkit-v2.git
   #git_rev: develop-1.9.18
-  path: /Users/vfonov/src/minc-toolkit-v2
+  #path: /Users/vfonov/src/minc-toolkit-v2
 
 requirements:
   build:
@@ -18,14 +18,14 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}  
     - {{ compiler('fortran') }}
-    - openblas =0.3.3            # [minctoolkit_variant == 'openblas'] 
-    - hdf5 ==1.10.4
+    - openblas            # [minctoolkit_variant == 'openblas'] 
+    - hdf5 
     - pcre
-    - libnetcdf ==4.6.1
+    - libnetcdf 
     - zlib
     - gsl
     - fftw
-    - jpeg =9b
+    - jpeg
     - openjpeg
     - perl
     - expat
@@ -34,17 +34,7 @@ requirements:
     - zlib
   run:
     - perl
-    - openblas =0.3.3        # [minctoolkit_variant == 'openblas'] 
-    - hdf5 ==1.10.4
-    - pcre
-    - libnetcdf ==4.6.1
-    - zlib
-    - gsl
-    - fftw
-    - jpeg=9b
-    - openjpeg
-    - expat                 # [minctoolkit_variant != 'lite'] 
-    - flex
+    - hdf5 
 
 test:
   commands:
@@ -52,7 +42,7 @@ test:
     - antsRegistration --version # [minctoolkit_variant != 'lite'] 
 
 build:
-  number: 4
+  number: 5
   string: {{ minctoolkit_variant }}_h{{PKG_HASH}}_{{ PKG_BUILDNUM }}
 
 about:
