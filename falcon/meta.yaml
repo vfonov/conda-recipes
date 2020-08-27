@@ -28,7 +28,7 @@ test:
     - falcon_cortex_refine -help
 
 build:
-  number: 0
+  number: 1
 
 
 about:
