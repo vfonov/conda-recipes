@@ -19,9 +19,9 @@ requirements:
     - {{ compiler('cxx') }}  
     - {{ compiler('fortran') }}
     - openblas            # [minctoolkit_variant == 'openblas'] 
-    - hdf5 
+    - hdf5       {{hdf5}}
     - pcre
-    - libnetcdf 
+    - libnetcdf  {{libnetcdf}}
     - zlib
     - gsl
     - fftw
