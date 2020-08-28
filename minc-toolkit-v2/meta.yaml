@@ -34,7 +34,16 @@ requirements:
     - zlib
   run:
     - perl
-    - hdf5 
+    - hdf5
+    - libnetcdf
+    - zlib
+    - gsl
+    - jpeg
+    - fftw
+    - jpeg
+    - openjpeg
+    - expat
+    - pcre
 
 test:
   commands:
