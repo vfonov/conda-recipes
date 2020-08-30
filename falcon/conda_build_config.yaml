@@ -1,3 +1,4 @@
-minc_toolkit_v2:
-   - 1.9.18=openblas_h1234567_6
-   - 1.9.18=noblas_h1234567_6
+minc_toolkit_v2_var:
+   - openblas_h1234567_6
+   - noblas_h1234567_6
+minc_toolkit_v2_ver: 1.9.18

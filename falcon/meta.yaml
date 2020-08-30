@@ -9,7 +9,7 @@ source:
 
 requirements:
   build:
-    - minc-toolkit-v2 {{ minc_toolkit_v2 }}
+    - minc-toolkit-v2 {{ minc_toolkit_v2_ver }} {{ minc_toolkit_v2_var }}
     - libtiff
     - cmake
     - make
@@ -19,7 +19,7 @@ requirements:
     - libtiff
     - povray
     - imagemagick
-    - minc-toolkit-v2 {{ minc_toolkit_v2 }}
+    - minc-toolkit-v2 {{ minc_toolkit_v2_ver }} {{ minc_toolkit_v2_var }}
 
 test:
   commands:
@@ -28,12 +28,12 @@ test:
     - falcon_cortex_refine -help
 
 build:
-  number: 1
-
+  number: 3
+  string: {{ minc_toolkit_v2_var }}_{{ PKG_BUILDNUM }}
 
 about:
   home: https://github.com/vfonov/falcon
   license: GPL3
   summary: 'Falcon cortical thickness measurement'
   description: |
-    Falcon is a set of tools for cortical thickness measurements, to be made public sometime soon.
+    Falcon is a set of tools for cortical thickness measurements
