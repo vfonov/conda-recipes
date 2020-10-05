@@ -1,11 +1,10 @@
 package:
   name: falcon
-  version: "0.9.12"
+  version: "0.9.13.1"
 
 source:
-  #path: ../../falcon-gh
   git_url: https://github.com/vfonov/falcon.git
-  git_rev: release-0.9.12
+  git_rev: develop-0.9.13.1
 
 requirements:
   build:
@@ -28,7 +27,7 @@ test:
     - falcon_cortex_refine -help
 
 build:
-  number: 3
+  number: 0
   string: {{ minc_toolkit_v2_var }}_{{ PKG_BUILDNUM }}
 
 about:
