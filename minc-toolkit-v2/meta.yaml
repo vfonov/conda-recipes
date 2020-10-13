@@ -34,8 +34,8 @@ requirements:
     - zlib
   run:
     - perl
-    - hdf5
-    - libnetcdf
+    - hdf5      
+    - libnetcdf 
     - zlib
     - gsl
     - jpeg
@@ -44,6 +44,7 @@ requirements:
     - openjpeg
     - expat
     - pcre
+  
 
 test:
   commands:
@@ -51,8 +52,17 @@ test:
     - antsRegistration --version # [minctoolkit_variant != 'lite'] 
 
 build:
-  number: 6
+  number: 8
   string: {{ minctoolkit_variant }}_h{{PKG_HASH}}_{{ PKG_BUILDNUM }}
+  run_exports:
+    - {{ pin_compatible('hdf5', max_pin='x.x') }}
+    - {{ pin_compatible('libnetcdf', max_pin='x.x') }}
+    - {{ pin_compatible('fftw', max_pin='x.x') }}
+    - openjpeg
+    - zlib
+    - {{ pin_compatible('gsl', max_pin='x.x') }}
+    - jpeg
+    - expat
 
 about:
   home: http://bic-mni.github.io/

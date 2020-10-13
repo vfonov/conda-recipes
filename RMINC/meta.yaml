@@ -44,6 +44,7 @@ requirements:
     - r-rjson
     - r-DT
     - r-rlang
+    - r-bigstatsr
     - minc-toolkit-v2 {{ minc_toolkit_v2 }}
     - zlib
 
@@ -77,6 +78,7 @@ requirements:
     - r-rjson
     - r-DT
     - r-rlang
+    - r-bigstatsr
 
 about:
   home: https://github.com/Mouse-Imaging-Centre/RMINC
