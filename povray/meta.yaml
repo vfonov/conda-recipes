@@ -20,7 +20,7 @@ requirements:
     - pthread-stubs
     - autoconf
     - automake
-    - libboost {{boost}}
+    - libboost
   run:
     - libpng
     - zlib
@@ -32,7 +32,12 @@ test:
   commands:
 
 build:
-  number: 2
+  number: 3
+  run_exports:
+    - libboost
+    - libpng
+    - libtiff
+    - jpeg
 
 about:
   home: http://www.povray.org/

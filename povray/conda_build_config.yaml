@@ -1,5 +1,5 @@
-boost: 1.71
+libboost: 1.71
 pin_run_as_build:
-    boost:
+    libboost:
       max_pin: x.x
 
