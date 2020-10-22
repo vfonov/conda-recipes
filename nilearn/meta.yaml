@@ -1,0 +1,91 @@
+{% set name = "nilearn" %}
+{% set version = "0.6.2" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
+  sha256: cfc6cfda59a6f4247189f8ccf92e364de450460a15c0ec21bdb857c420dd198c
+
+build:
+  number: 0
+  script: "{{ PYTHON }} -m pip install . -vv"
+
+requirements:
+  host:
+    - joblib >=0.11
+    - nibabel >=2.0.2
+    - numpy >=1.11
+    - pip
+    - python
+    - scikit-learn >=0.19
+    - scipy >=0.19
+  run:
+    - joblib >=0.11
+    - nibabel >=2.0.2
+    - numpy >=1.11
+    - python
+    - scikit-learn >=0.19
+    - scipy >=0.19
+    - matplotlib
+    
+test:
+  requires:
+    - pytest
+  imports:
+    - nilearn
+    - nilearn._utils
+    - nilearn.connectome
+    - nilearn.connectome.tests
+    - nilearn.datasets
+    - nilearn.datasets.data
+    - nilearn.datasets.data.fsaverage5
+    - nilearn.datasets.description
+    - nilearn.datasets.tests
+    - nilearn.datasets.tests.data
+    - nilearn.decoding
+    - nilearn.decoding.tests
+    - nilearn.decomposition
+    - nilearn.decomposition.tests
+    - nilearn.externals
+    - nilearn.externals.tempita
+    - nilearn.image
+    - nilearn.image.tests
+    - nilearn.image.tests.data
+    - nilearn.input_data
+    - nilearn.input_data.tests
+    - nilearn.mass_univariate
+    - nilearn.mass_univariate.tests
+    - nilearn.plotting
+    - nilearn.plotting.data
+    - nilearn.plotting.data.html
+    - nilearn.plotting.data.js
+    - nilearn.plotting.glass_brain_files
+    - nilearn.plotting.tests
+    - nilearn.regions
+    - nilearn.regions.tests
+    - nilearn.reporting
+    - nilearn.reporting.data
+    - nilearn.reporting.data.html
+    - nilearn.reporting.tests
+    - nilearn.surface
+    - nilearn.surface.data
+    - nilearn.surface.tests
+    - nilearn.surface.tests.data
+    - nilearn.tests
+    - nilearn.tests.data
+
+about:
+  home: "http://nilearn.github.io"
+  license: new BSD
+  license_family: BSD
+  license_file: 
+  summary: "Statistical learning for neuroimaging in Python"
+  doc_url: 
+  dev_url: 
+
+extra:
+  recipe-maintainers:
+    - your-github-id-here
