@@ -1,10 +1,10 @@
 package:
   name: falcon
-  version: "0.9.13.1"
+  version: "0.9.14"
 
 source:
   git_url: https://github.com/vfonov/falcon.git
-  git_rev: develop-0.9.13.1
+  git_rev: develop-0.9.14
 
 requirements:
   build:

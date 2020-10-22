@@ -1,13 +1,13 @@
 {% set name = "nibabel" %}
-{% set version = "2.3.0" %}
+{% set version = "3.1.0" %}
 
 package:
   name: "{{ name|lower }}"
   version: "{{ version }}"
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: bf34aeb0f7ca52dc528ae4f842607cea307b334163857ff1d64d43068f637ada
+  url: https://github.com/nipy/{{ name }}/archive/{{ version }}.tar.gz
+  sha256: 855e0f0795282c0d32ffc25e5d4e1b4b2c7b84d8e385f8959efdc640ea909947
 
 build:
   number: 0
@@ -21,8 +21,9 @@ requirements:
     - six
   run:
     - python
-    - numpy
+    - numpy >=1.14
     - six
+    - packaging >=14.3
 
 test:
   imports:
@@ -58,4 +59,4 @@ about:
 
 extra:
   recipe-maintainers:
-    - your-github-id-here
+    - vfonov
