@@ -1,0 +1,35 @@
+package:
+  name: qrencode
+  version: "4.1.1"
+
+source:
+  fn: qrencode-4.1.1.tar.gz
+  url: https://fukuchi.org/works/qrencode/qrencode-4.1.1.tar.gz
+  sha512: 209bb656ae3f391b03c7b3ceb03e34f7320b0105babf48b619e7a299528b8828449e0e7696f0b5db0d99170a81709d0518e34835229a748701e7df784e58a9ce
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }} 
+    - make
+    - libpng
+    - zlib
+    - autoconf
+    - automake
+    - pkgconfig
+  run:
+    - libpng
+    - zlib
+
+test:
+  commands:
+
+build:
+  number: 2
+  run_exports:
+    - libpng
+
+about:
+  home: https://fukuchi.org/works/qrencode/index.html.en
+  summary: 'QR code generator'
+  license: GPL
