@@ -34,8 +34,8 @@ requirements:
     - zlib
   run:
     - perl
-    - hdf5      
-    - libnetcdf 
+    - hdf5      {{hdf5}}
+    - libnetcdf {{libnetcdf}}
     - zlib
     - gsl
     - jpeg
